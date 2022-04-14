@@ -110,12 +110,12 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
         }
 
         Config categories = new Config(this, "categories.yml");
+        Config mobDrops = new Config(this, "mob-drops.yml");
         Config items = new Config(this, "items.yml");
         Config machines = new Config(this, "machines.yml");
         Config generators = new Config(this, "generators.yml");
         Config solarGenerators = new Config(this, "solar-generators.yml");
         Config passiveMachines = new Config(this, "passive-machines.yml");
-        Config mobDrops = new Config(this, "mob-drops.yml");
 
         this.getCommand("slimecustomizer").setTabCompleter(new SCTabCompleter());
 
