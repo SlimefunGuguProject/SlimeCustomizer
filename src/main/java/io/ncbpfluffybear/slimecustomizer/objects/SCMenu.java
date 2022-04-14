@@ -32,7 +32,7 @@ public class SCMenu extends ChestMenu {
         GuideHistory history = profile.getGuideHistory();
 
         if (history.size() > 1) {
-            this.replaceExistingItem(BACK_BUTTON_SLOT, new CustomItemStack(ChestMenuUtils.getBackButton(p, "", "&fLeft Click: &7Go back to previous Page", "&fShift + left Click: &7Go back to Main Menu")));
+            this.replaceExistingItem(BACK_BUTTON_SLOT, new CustomItemStack(ChestMenuUtils.getBackButton(p, "", "&f左击: &7返回上一页", "&fShift + 左击: &7返回主菜单")));
 
             this.addMenuClickHandler(BACK_BUTTON_SLOT, (pl, s, ic, action) -> {
                 if (!action.isRightClicked() && action.isShiftClicked()) {
