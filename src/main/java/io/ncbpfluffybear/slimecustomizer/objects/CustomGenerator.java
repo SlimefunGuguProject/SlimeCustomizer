@@ -76,15 +76,15 @@ public class CustomGenerator extends SCAGenerator {
         for (MachineFuel fuel : customRecipes) {
             ItemStack input = fuel.getInput();
             ItemStack customInput = new CustomItemStack(input, input.getItemMeta().getDisplayName(),
-                    "&8\u21E8 &7Lasts " + Utils.ticksToSeconds(fuel.getTicks()),
+                    "&8\u21E8 &7持续时间: " + Utils.ticksToSeconds(fuel.getTicks()),
                     LoreBuilderDynamic.powerPerTick(getEnergyProduction()),
-                    "&8\u21E8 &e\u26A1 &7" + fuel.getTicks() * getEnergyProduction() + " J in total"
+                    "&8\u21E8 &e\u26A1 &7总发电量: " + fuel.getTicks() * getEnergyProduction() + " J"
             );
             displayRecipes.add(customInput);
             if (fuel.getOutput() != null) {
                 displayRecipes.add(fuel.getOutput());
             } else {
-                displayRecipes.add(new CustomItemStack(Material.LIGHT_GRAY_STAINED_GLASS_PANE, "&7No Output"));
+                displayRecipes.add(new CustomItemStack(Material.LIGHT_GRAY_STAINED_GLASS_PANE, "&7无输出"));
             }
 
         }
