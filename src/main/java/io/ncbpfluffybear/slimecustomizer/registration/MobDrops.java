@@ -120,7 +120,7 @@ public class MobDrops {
             /* Crafting recipe */
             ItemStack[] recipe = new ItemStack[] {
                     null, null, null,
-                    null, new CustomItemStack(eggMaterial, "&b" + Utils.capitalize(mobType), "&7Kill a "
+                    null, new CustomItemStack(eggMaterial, "&b" + Utils.capitalize(mobType), "&7击杀"
                     + Utils.capitalize(mobType))
             };
 
