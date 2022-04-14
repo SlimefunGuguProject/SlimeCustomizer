@@ -78,7 +78,7 @@ public class SolarGenerators {
             // Building lore
             List<String> itemLore = Utils.colorList(Stream.concat(
                 generators.getStringList(generatorKey + "." + "generator-lore").stream(),
-                new ArrayList<>(Arrays.asList("", "&eSolar Generator",
+                new ArrayList<>(Arrays.asList("", "&e太阳能发电机",
                     LoreBuilderDynamic.powerPerTick(dayEnergy) + " &7(Day)",
                     LoreBuilderDynamic.powerPerTick(nightEnergy) + " &7(Night)"
                 )).stream()
