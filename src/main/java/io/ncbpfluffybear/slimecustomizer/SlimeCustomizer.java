@@ -70,11 +70,11 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
         final File categoriesFile = new File(getInstance().getDataFolder(), "categories.yml");
         copyFile(categoriesFile, "categories");
 
-        final File itemsFile = new File(getInstance().getDataFolder(), "items.yml");
-        copyFile(itemsFile, "items");
-
         final File mobDropsFile = new File(getInstance().getDataFolder(), "mob-drops.yml");
         copyFile(mobDropsFile, "mob-drops");
+        
+        final File itemsFile = new File(getInstance().getDataFolder(), "items.yml");
+        copyFile(itemsFile, "items");
 
 
         final File machinesFile = new File(getInstance().getDataFolder(), "machines.yml");
@@ -121,11 +121,11 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
 
         Bukkit.getLogger().log(Level.INFO, "[SlimeCustomizer] " + ChatColor.BLUE + "Setting up custom stuff...");
         if (!Categories.register(categories)) {return;}
+        if (!MobDrops.register(mobDrops)) {return;}
         if (!Items.register(items)) {return;}
         if (!Machines.register(machines)) {return;}
         if (!Generators.register(generators)) {return;}
         if (!SolarGenerators.register(solarGenerators)) {return;}
-        if (!MobDrops.register(mobDrops)) {return;}
         Bukkit.getPluginManager().registerEvents(new Events(), instance);
     }
 
@@ -151,7 +151,7 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
             Config itemFileConfig = new Config(this, "saveditems/" + id + ".yml");
             itemFileConfig.setValue("item", p.getInventory().getItemInMainHand());
             itemFileConfig.save();
-            Utils.send(p, "&eYour item has been saved to " + itemFile.getPath() + ". Please refer to " +
+            Utils.send(p, "&e你的物品以保存于 " + itemFile.getPath() + ". 请参考 " +
                 "&9" + Links.USING_CUSTOM_ITEMS);
 
         } else if (args[0].equals("give") && args.length > 2) {
@@ -161,13 +161,13 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
 
             Player target = Bukkit.getPlayer(args[1]);
             if (target == null) {
-                Utils.send(sender, "&cThat player could not be found!");
+                Utils.send(sender, "&c玩家未在线!");
                 return true;
             }
 
             SlimefunItem sfItem = SlimefunItem.getById(args[2].toUpperCase());
             if (sfItem == null) {
-                Utils.send(sender, "&cThat Slimefun item could not be found!");
+                Utils.send(sender, "&c该Slimefun物品无效!");
                 return true;
             }
 
@@ -195,7 +195,7 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
             if (args[1].equals("gui")) {
 
                 if (!(sender instanceof Player)) {
-                    Utils.send(sender, "&4This command can only be executed in game");
+                    Utils.send(sender, "&4这个命令只能在游戏中执行");
                     return true;
                 }
 
@@ -216,7 +216,7 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
                     }
 
                     int page = 1;
-                    SCMenu menu = new SCMenu("&a&lSaved Items");
+                    SCMenu menu = new SCMenu("&a&l已保存物品");
                     menu.setSize(54);
                     populateMenu(menu, items, page, p);
                     menu.setPlayerInventoryClickable(false);
@@ -235,7 +235,7 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
 
                 Player target = Bukkit.getPlayer(args[2]);
                 if (target == null) {
-                    Utils.send(sender, "&cThat player could not be found!");
+                    Utils.send(sender, "&c玩家未在线!");
                     return true;
                 }
 
@@ -254,14 +254,14 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
                         target.getWorld().dropItem(target.getLocation(), leftover);
                     }
 
-                    Utils.send(sender, "&bYou have given " + target.getName() + " &a" + amount + " &bof &7\"&a" +
+                    Utils.send(sender, "&b你已经给予 " + target.getName() + " &a" + amount + " &bof &7\"&a" +
                             savedID + "&7\"");
                 } else {
-                    Utils.send(sender, "&cThat saveditem could not be found!");
+                    Utils.send(sender, "&c保存物品未找到!");
                 }
             }
         } else {
-            Utils.send(sender, "&eAll commands can be found at &9" + Links.COMMANDS);
+            Utils.send(sender, "&e所以指令可在此查看 &9" + Links.COMMANDS);
         }
 
         return true;
@@ -294,10 +294,10 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
 
                 if (lore == null) {
                     lore = new ArrayList<>(Arrays.asList("", Utils.color("&bID: " + items.get(itemIndex).getFirstValue()),
-                        Utils.color("&a> Click to get this item")));
+                        Utils.color("&a> 单击获取该物品")));
                 } else {
                     lore.addAll(new ArrayList<>(Arrays.asList("", Utils.color("&bID: " + items.get(itemIndex).getFirstValue()),
-                        Utils.color("&a> Click to get this item"))));
+                        Utils.color("&a> 单击获取该物品"))));
                 }
 
                 im.setLore(lore);
@@ -314,7 +314,7 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
         }
 
         if (page != 1) {
-            menu.replaceExistingItem(46, new CustomItemStack(Material.LIME_STAINED_GLASS_PANE, "&aPrevious Page"));
+            menu.replaceExistingItem(46, new CustomItemStack(Material.LIME_STAINED_GLASS_PANE, "&a上一页"));
             menu.addMenuClickHandler(46, (pl, s, is, action) -> {
                 populateMenu(menu, items, page - 1, p);
                 return false;
@@ -322,7 +322,7 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
         }
 
         if (getItemOrNull(items, 45 * page) != null) {
-            menu.replaceExistingItem(52, new CustomItemStack(Material.LIME_STAINED_GLASS_PANE, "&aNext Page"));
+            menu.replaceExistingItem(52, new CustomItemStack(Material.LIME_STAINED_GLASS_PANE, "&a下一页"));
             menu.addMenuClickHandler(52, (pl, s, is, action) -> {
                 populateMenu(menu, items, page + 1, p);
                 return false;
@@ -343,7 +343,7 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
 
     private void giveItems(CommandSender s, Player p, SlimefunItem sfItem, int amount) {
         p.getInventory().addItem(new CustomItemStack(sfItem.getRecipeOutput(), amount));
-        Utils.send(s, "&bYou have given " + p.getName() + " &a" + amount + " &7\"&b" + sfItem.getItemName() + "&7\"");
+        Utils.send(s, "&b你已给予 " + p.getName() + " &a" + amount + " &7\"&b" + sfItem.getItemName() + "&7\"");
     }
 
     private void copyFile(File file, String name) {
