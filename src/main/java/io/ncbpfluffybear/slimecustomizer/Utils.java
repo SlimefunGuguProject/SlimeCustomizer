@@ -46,7 +46,7 @@ public class Utils {
 
     public static boolean checkPermission(Player p, String permission) {
         if (!p.hasPermission(permission)) {
-            Utils.send(p, "&cYou do not have permission to use this command!");
+            Utils.send(p, "&c你没有权限使用该指令!");
             return false;
         }
 
