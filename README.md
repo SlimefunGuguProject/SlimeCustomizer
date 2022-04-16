@@ -1,12 +1,12 @@
-# SlimeCustomizer
-This Slimefun4 addon allows any server owner to add their own custom Slimefun machines!
+# SlimeCustomizer（自定义粘液附属）
+这是一个Slimefun4附属，它可以让您自定义属于自己的附属，操作简单易懂!
 <p align="center">
   <a href="https://thebusybiscuit.github.io/builds/NCBPFluffyBear/SlimeCustomizer/master/">
     <img src="https://thebusybiscuit.github.io/builds/NCBPFluffyBear/SlimeCustomizer/master/badge.svg" alt="Build Server"/>
   </a>
 </p>
 
-### Showcase
+### 展示
 *Want to see what SlimeCustomizer can do? Visit `play.royale-mc.com` and take a look at their custom items! All showcase image credits go to Azakaturan.*
 
 ![Resources](https://user-images.githubusercontent.com/31554056/110004177-c124dd00-7cdc-11eb-8031-3c1feeec228e.png)\
@@ -16,20 +16,20 @@ This Slimefun4 addon allows any server owner to add their own custom Slimefun ma
 ![Charcoal Kiln](https://user-images.githubusercontent.com/31554056/110005316-f2ea7380-7cdd-11eb-8bd3-d95d50b25be6.png)
 ![Heated Carbon Press](https://user-images.githubusercontent.com/31554056/110005318-f3830a00-7cdd-11eb-871b-6b9fa733231a.png)
 
-#### Reporting bugs
-Please report all bugs in the [issue tracker](https://github.com/NCBPFluffyBear/SlimeCustomizer/issues).
+#### 汇报bug
+汉化版自定义附属请在此汇报bug [issue](https://github.com/SlimefunGuguProject/SlimeCustomizer).
 
-## How to use SlimeCustomizer
+## 如何使用SlimeCustomizer
 
-##### Installing the plugin
-1. Download SlimeCustomizer via the [Slimefun repo server](https://thebusybiscuit.github.io/builds/NCBPFluffyBear/SlimeCustomizer/master/)
-2. Move the downloaded jar (SlimeCustomizer - DEV ... .jar) to your plugins folder, located at `\<YOUR_SERVER_LOCATION>\plugins`
-3. Start the server to generate the proper configuration files
-4. Stop the server
+##### 安装插件
+1. 下载SlimeCustomizer[Slimefun repo server](https://thebusybiscuit.github.io/builds/NCBPFluffyBear/SlimeCustomizer/master/)
+2. 拖动jar文件至你服务器的plugins文件,定位至`\<YOUR_SERVER_LOCATION>\plugins`
+3. 启动服务器以生成正确的配置文件
+4. 再次关闭服务器就可以在配置文件里编辑属于你自己的附属了
 
-##### Adding your category
-1. Open the `categories.yml` file, located at `\<YOUR_SERVER_LOCATION>\plugins\SlimeCustomizer`
-The table below explains what each key does.
+##### 添加你的分类
+1. 打开 `categories.yml`文件, 定位至 `\<YOUR_SERVER_LOCATION>\plugins\SlimeCustomizer`
+下表展示了每块的内容
 
 ```yaml
 slime_customizer:
@@ -37,16 +37,19 @@ slime_customizer:
   category-item: REDSTONE_LAMP
 ```
 
-| Key | Description |
+| 内容 | 描述 |
 | -------- | -------- |
-| slime_customizer | The ID of the category. You can change this key! |
-| category-name | The name of the category that shows in the Slimefun guide. |
-| category-item | The vanilla material ID or skull hash of the item that this category will use in the Slimefun guide. |
+| slime_customizer | 这是分类的ID. 如果你要创造不同的分类，你需要更改/额外添加此ID! |
+| category-name | 这是显示在粘液科技书里的分类名 |
+| category-item | 这里需要填入原版物品ID或者头颅（格式Skull+URL） |
+
+如果你要添加头颅材质并获取头颅的URL
+请访问https://minecraft-heads.com/custom-heads
 
 
-##### Adding your item
-1. Open the `items.yml` file, located at `\<YOUR_SERVER_LOCATION>\plugins\SlimeCustomizer`
-The table below explains what each key does.
+##### 添加你的物品材料
+1. 打开`items.yml`文件, 定位至 `\<YOUR_SERVER_LOCATION>\plugins\SlimeCustomizer`
+下表展示了每块的内容
 
 
 ```yaml
@@ -100,13 +103,13 @@ EXAMPLE_ITEM:
       amount: 1
 ```
 
-| Key | Description | Acceptable Inputs |
+| 内容 | 描述 | 有效输入 |
 | --- | ----------- | ----------------- |
-| EXAMPLE_ITEM | The ID of the item. You can change this key! |
-| category | The key of the category that this item will be under in the Slimefun guide.
-| item-type | The type of item that you are registering. | CUSTOM (You define the name, lore, and type), SAVEDITEM (Load key from saveditems folder) |
-| item-name | The name of the item. |
-| item-lore | The lore of the item. |
+| EXAMPLE_ITEM | 这是物品的ID.如果你要创造不同的物品，你需要更改/额外添加此ID! |
+| category | 此项输入物品所在分类的ID，即你之前创建的分类ID |
+| item-type | 这是你物品注册的方式 | CUSTOM (填入此时，你可以自定义物品名称、描述、种类), SAVEDITEM (从saveditems文件里加载物品，下文会讲) |
+| item-name | 这是物品的名称 |
+| item-lore | 这是物品的描述 |
 | item-id | The vanilla ID or skull hash of the material this item will use. |
 | item-amount | The amount of this item crafted at once. |
 | placeable | If the item is placeable or not. DO NOT MAKE TOOLS PLACEABLE! |
