@@ -17,7 +17,7 @@
 ![Heated Carbon Press](https://user-images.githubusercontent.com/31554056/110005318-f3830a00-7cdd-11eb-871b-6b9fa733231a.png)
 
 #### 汇报bug
-汉化版自定义附属请在此汇报bug [issue](https://github.com/SlimefunGuguProject/SlimeCustomizer).
+汉化版SlimeCustomizer请在此汇报bug [issue](https://github.com/SlimefunGuguProject/SlimeCustomizer).
 
 ## 如何使用SlimeCustomizer
 
@@ -107,7 +107,7 @@ EXAMPLE_ITEM:
 | --- | ----------- | ----------------- |
 | EXAMPLE_ITEM | 这是物品的ID.如果你要添加不同的物品，你需要更改/额外添加此ID! |
 | category | 此项输入物品所在分类的ID，即你之前创建的分类ID |
-| item-type | 这是你物品注册的方式 | CUSTOM (填入此时，你可以自定义物品名称、描述、种类), SAVEDITEM (从saveditems文件里加载物品，下文会讲) |
+| item-type | 这是你物品注册的方式 | CUSTOM (填入此项时，你可以自定义物品名称、描述、种类), SAVEDITEM (从saveditems文件里加载物品，下文会讲) |
 | item-name | 这是物品的名称 |
 | item-lore | 这是物品的描述 |
 | item-id | 这里需要填入原版物品ID或者头颅（格式Skull+URL） |
@@ -317,12 +317,12 @@ EXAMPLE_GENERATOR:
 ```
 | 内容 | 描述 | 有效输入 |
 | --- | ----------- | ----------------- |
-| EXAMPLE_GENERATOR | 这是机器的ID.如果你要添加不同的机器，你需要更改/额外添加此ID! |
+| EXAMPLE_GENERATOR | 这是发电机的粘液ID.如果你要添加不同的发电机，你需要更改/额外添加此ID! |
 | category | 此项输入机器所在分类的ID，即你之前创建的分类ID |
 | generator-name | 这是发电机的名称 |
 | generator-lore | 这是发电机的描述 |
 | block-type | 这里需要填入原版物品ID或者头颅（格式Skull+URL） | 
-| progress-bar-item | 这里需要填入原版物品ID，这决定了机器的进度栏物品 |
+| progress-bar-item | 这里需要填入原版物品ID，这决定了发电机的进度栏物品 |
 | stats.energy-production | 这台发电机每粘液刻产生的能量，最大为2147483647 |
 | stats.energy-buffer | 这台发电机可储存的能量，最大为2147483647 |
 | crafting-recipe-type | 制作此物品所用的多块机器 | ENHANCED_CRAFTING_TABLE（强化工作台）, MAGIC_WORKBENCH（魔法工作台）, ARMOR_FORGE（盔甲锻造台）, COMPRESSOR（压缩机）, PRESSURE_CHAMBER（压力舱）, SMELTERY（冶炼炉）, ORE_CRUSHER（矿石粉碎机）, GRIND_STONE（磨石）, NONE (无法被合成) |
@@ -336,7 +336,7 @@ EXAMPLE_GENERATOR:
 
 ##### 添加你的太阳能发电机
 1. 打开`solar-generators.yml` file, located at `\<YOUR_SERVER_LOCATION>\plugins\SlimeCustomizer`
-The table below explains what each key does.
+下表展示了每块的内容
 
 ```yaml
 EXAMPLE_SOLAR_GENERATOR:
@@ -390,24 +390,25 @@ EXAMPLE_SOLAR_GENERATOR:
 ```
 | Key | Description | Acceptable Inputs |
 | --- | ----------- | ----------------- |
-| EXAMPLE_SOLAR_GENERATOR | The ID of the generator. You can change this key! |
-| category | The key of the category that this item will be under in the Slimefun guide.
-| generator-name | The name of the generator. |
-| generator-lore | The lore of the generator. |
-| block-type | The vanilla ID or skull hash of the material this item will use. | 
-| stats.energy-production.day | The amount of energy produced by this generator per Slimefun tick during daytime. |
-| stats.energy-production.day | The amount of energy produced by this generator per Slimefun tick during nighttime. |
-| crafting-recipe-type | The multiblock machine that this item will be crafted in. | ENHANCED_CRAFTING_TABLE, MAGIC_WORKBENCH, ARMOR_FORGE, COMPRESSOR, PRESSURE_CHAMBER, SMELTERY, ORE_CRUSHER, GRIND_STONE, NONE (Can not be crafted with multiblocks) |
-| crafting-recipe.#.type | The type of item. | NONE (Empty spot, all other fields will be ignored), VANILLA, SLIMEFUN, SAVEDITEM |
-| crafting-recipe.#.id | The id of the item based on the type. |
-| crafting-recipe.#.amount | The amount of the item to use in the recipe. Enhanced Crafting Table only accepts 1. |
+| EXAMPLE_SOLAR_GENERATOR | 这是太阳能发电机的粘液ID.如果你要添加不同的太阳能发电机，你需要更改/额外添加此ID! |
+| category | 此项输入太阳能发电机所在分类的ID，即你之前创建的分类ID |
+| generator-name | 这是太阳能发电机的名称 |
+| generator-lore | 这是太阳能发电机的描述 |
+| block-type | 这里需要填入原版物品ID或者头颅（格式Skull+URL)| 
+| stats.energy-production.day | 白天该发电机每粘液刻所生产的能量 |
+| stats.energy-production.night | 夜晚该发电机每粘液刻所生产的能量 |
+| crafting-recipe-type | 制作此物品所用的多块机器 | ENHANCED_CRAFTING_TABLE（强化工作台）, MAGIC_WORKBENCH（魔法工作台）, ARMOR_FORGE（盔甲锻造台）, COMPRESSOR（压缩机）, PRESSURE_CHAMBER（压力舱）, SMELTERY（冶炼炉）, ORE_CRUSHER（矿石粉碎机）, GRIND_STONE（磨石）, NONE (无法被合成) |
+| crafting-recipe.#.type | 物品种类 | NONE (无物品), VANILLA, SLIMEFUN, SAVEDITEM |
+| crafting-recipe.#.id | 原版/粘液科技/保存物品的物品ID |
+| crafting-recipe.#.amount | 输入/输出物品数量，高级工作台物品数量仅能为1 |
 
-##### Adding your mob drops
-1. Open the `mob-drops.yml` file, located at `\<YOUR_SERVER_LOCATION>\plugins\SlimeCustomizer`
-   The table below explains what each key does.
+##### 添加你的生物掉落物
+###### （注意：该项会在自定义物品（items.yml）前注册，所以你可以在自定义物品的合成配方中直接引用生物掉落物，而无需再在游戏内保存物品）
+###### 原版SlimeCustomizer不享有上述功能
+1. 打开`mob-drops.yml`文件, 定位至`\<YOUR_SERVER_LOCATION>\plugins\SlimeCustomizer`
+下表展示了每块的内容
 
 ```yaml
-#READ THE WIKI BEFORE CREATING AN ITEM! https://github.com/NCBPFluffyBear/SlimeCustomizer/blob/master/README.md
 EXAMPLE_DROP:
   category: slime_customizer
   item-type: CUSTOM
@@ -423,25 +424,25 @@ EXAMPLE_DROP:
 ```
 | Key | Description | Acceptable Inputs |
 | --- | ----------- | ----------------- |
-| EXAMPLE_DROP | The ID of the mob drop. You can change this key! |
-| category | The key of the category that this drop will appear under in the Slimefun guide.
-| item-type | The type of item that you are registering. | CUSTOM (You define the name, lore, and type), SAVEDITEM (Load key from saveditems folder) |
-| item-name | The name of the item. (Custom item types only) |
-| item-lore | The lore of the item. (Custom item types only) |
-| item-id | The vanilla ID or skull hash of the material this item will use. |
-| item-amount | The amount of this item dropped. |
-| mob | The type of mob that drops this item |
-| chance | The chance that the specified mob drops the item (0 - 100) |
-| recipe-display-item | The item that appears in the Slimefun guide's instructions on how to obtain this drop |
+| EXAMPLE_DROP | 这是生物掉落物的粘液ID.如果你要添加不同的生物掉落物，你需要更改/额外添加此ID! |
+| category | 此项输入生物掉落物所在分类的ID，即你之前创建的分类ID |
+| item-type | 这是你物品注册的方式 | CUSTOM (填入此项时，你可以自定义物品名称、描述、种类), SAVEDITEM (从saveditems文件里加载物品，下文会讲) |
+| item-name | 这是生物掉落物的名称 (只适用于item-type填入CUSTOM时) |
+| item-lore | 这是生物掉落物的描述 (只适用于item-type填入CUSTOM时) |
+| item-id | 这里需要填入原版物品ID或者头颅（格式Skull+URL) |
+| item-amount | 该掉落物一次性可掉落的数量 |
+| mob | 掉落该物品的实体 |
+| chance | 掉落该物品的几率 (0 - 100) |
+| recipe-display-item | 出现在粘液科技书中关于如何获得该掉落物的显示图标 |
 
-#### Using skull textures
-Want to use a skull texture instead of a block? Replace `block-type` with `SKULL<hash>`. Example provided in the generators config.
-How to create a skull hash: https://bukkit.org/threads/create-your-own-custom-head-texture.424286/
+#### 使用头颅材质
+想要为你的物品添加透漏材质? 在`block-type` 中填入 `SKULL<hash>`(即上文所说的Skull+URL). 发电机配置中展示了头颅材质的示例.
+如何创建skull hash: https://bukkit.org/threads/create-your-own-custom-head-texture.424286/
 
-#### Using custom items
-SlimeCustomizer supports custom items! These can be from other plugins or even renamed/relored items!
+#### 使用自定义物品
+SlimeCustomizer 支持所有自定义物品! 这些物品可以来自其他插件，甚至是重命名/重存储的物品!
 
-###### I will be "setting up" an example item along the way.
+###### 如何保存物品
 ##### Saving an item
 1. Hold the item you want to use in your hand
 2. Type `/sc saveitem` (You must have the proper permissions to use this command)
