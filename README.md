@@ -318,24 +318,24 @@ EXAMPLE_GENERATOR:
 | 内容 | 描述 | 有效输入 |
 | --- | ----------- | ----------------- |
 | EXAMPLE_GENERATOR | 这是机器的ID.如果你要添加不同的机器，你需要更改/额外添加此ID! |
-| category | The key of the category that this item will be under in the Slimefun guide.
-| generator-name | The name of the generator. |
-| generator-lore | The lore of the generator. |
-| block-type | The vanilla ID or skull hash of the material this item will use. | 
-| progress-bar-item | The vanilla ID of the progress bar item. |
-| stats.energy-production | The amount of energy produced by this generator per Slimefun tick. |
-| stats.energy-buffer | The amount of energy that can be stored in this machine. |
-| crafting-recipe-type | The multiblock machine that this item will be crafted in. | ENHANCED_CRAFTING_TABLE, MAGIC_WORKBENCH, ARMOR_FORGE, COMPRESSOR, PRESSURE_CHAMBER, SMELTERY, ORE_CRUSHER, GRIND_STONE, NONE (Can not be crafted with multiblocks) |
-| crafting-recipe.#.type | The type of item. | NONE (Empty spot, all other fields will be ignored), VANILLA, SLIMEFUN, SAVEDITEM |
-| crafting-recipe.#.id | The id of the item based on the type. |
-| crafting-recipe.#.amount | The amount of the item to use in the recipe. Enhanced Crafting Table only accepts 1. |
-| recipes.#.time-in-seconds | The time it takes for the recipe to complete. |
-| recipes.#.input/output.type | The type of item. | NONE (Empty spot, all other fields will be ignored), VANILLA, SLIMEFUN, SAVEDITEM |
-| recipes.#.input/output.id | The id of the item based on the type. |
-| recipes.#.input/output.amount | The amount of items. |
+| category | 此项输入机器所在分类的ID，即你之前创建的分类ID |
+| generator-name | 这是发电机的名称 |
+| generator-lore | 这是发电机的描述 |
+| block-type | 这里需要填入原版物品ID或者头颅（格式Skull+URL） | 
+| progress-bar-item | 这里需要填入原版物品ID，这决定了机器的进度栏物品 |
+| stats.energy-production | 这台发电机每粘液刻产生的能量，最大为2147483647 |
+| stats.energy-buffer | 这台发电机可储存的能量，最大为2147483647 |
+| crafting-recipe-type | 制作此物品所用的多块机器 | ENHANCED_CRAFTING_TABLE（强化工作台）, MAGIC_WORKBENCH（魔法工作台）, ARMOR_FORGE（盔甲锻造台）, COMPRESSOR（压缩机）, PRESSURE_CHAMBER（压力舱）, SMELTERY（冶炼炉）, ORE_CRUSHER（矿石粉碎机）, GRIND_STONE（磨石）, NONE (无法被合成) |
+| crafting-recipe.#.type | 物品种类 | NONE (无物品), VANILLA, SLIMEFUN, SAVEDITEM |
+| crafting-recipe.#.id | 原版/粘液科技/保存物品的物品ID |
+| crafting-recipe.#.amount | 合成该机器所需物品的数量，高级工作台所需物品数量仅能为1. |
+| recipes.#.time-in-seconds | 该物品发电的持续时间，最大为2147483647 |
+| recipes.#.input/output.type | 物品的种类 | NONE (无物品), VANILLA, SLIMEFUN, SAVEDITEM |
+| recipes.#.input/output.id | 原版/粘液科技/保存物品的物品ID |
+| recipes.#.input/output.amount | 输入/输出物品数量 |
 
-##### Adding your solar generator
-1. Open the `solar-generators.yml` file, located at `\<YOUR_SERVER_LOCATION>\plugins\SlimeCustomizer`
+##### 添加你的太阳能发电机
+1. 打开`solar-generators.yml` file, located at `\<YOUR_SERVER_LOCATION>\plugins\SlimeCustomizer`
 The table below explains what each key does.
 
 ```yaml
