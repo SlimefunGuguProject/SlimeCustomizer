@@ -443,43 +443,44 @@ EXAMPLE_DROP:
 SlimeCustomizer 支持所有自定义物品! 这些物品可以来自其他插件，甚至是重命名/重存储的物品!
 
 ###### 如何保存物品
-##### Saving an item
-1. Hold the item you want to use in your hand
-2. Type `/sc saveitem` (You must have the proper permissions to use this command)
+##### 保存一个物品
+1. 手持你想要保存的物品
+2. 输入 `/sc saveitem` (您必须拥有op权限)
 
-The location of where your item is saved will appear in chat. You can rename this file to anything WITHOUT SPACES. This name will be used in your configs.
+你的保存物品的保存位置将会出现在聊天栏中。您可以将该文件重命名为不带空格的任何名称。此名称将在您的.yml配置中使用。
 
-###### Example: Hold dirt, type /sc saveitem. Navigate to `\plugins\SlimeCustomizer\saveditems` and rename `0.yml` to `DIRT.yml` 
-##### Using your saved item
-Your saved item can be used in crafting recipes, machine inputs/outputs, and generator inputs/outputs.
-For `type`, use `SAVEDITEM` and for `id`, use the file name.
+###### 示例: 手持泥土, 输入 /sc saveitem. 导航至 `\plugins\SlimeCustomizer\saveditems` 并将`0.yml` 重命名为 `DIRT.yml` 
+##### 使用你的报错物品
+你的保存物品可以用于制作配方、机器的输入/输出和发电机的输入/输出。  
+在`type`中, 填入 `SAVEDITEM` 并在 `id` 中填入保存物品的.yml文件名
 
-###### Example:
+###### 示例:
 ```yaml
 1:
   type: SAVEDITEM
   id: DIRT    
 ```
-#### Important notes
-- Shaped multiblock machines (ENHANCED_CRAFTING_TABLE, MAGIC_WORKBENCH, ARMOR_FORGE, PRESSURE_CHAMBER) will only accept recipe inputs with a stack size of 1.
-- The speed/time and energy production/consumption that you configure may not line up exactly in game depending in your Slimefun tick delay. The lore is adaptive to show you to correct values according to real time.
-- When the `type` for the crafting recipes or machine inputs/outputs is set to NONE, all of the fields below it can be omitted.
-- If you are updating SlimeCustomizer and new keys have been added, they may appear in different spots than in the examples provided above. Feel free to move them around.
+上述id中的DIRT，即将`0.yml` 重命名为 `DIRT.yml`中，.yml文件前的英文名
+#### 重要提示
+- 这些多方块机器 (ENHANCED_CRAFTING_TABLE, MAGIC_WORKBENCH, ARMOR_FORGE, PRESSURE_CHAMBER) 只接受数量大小为1的配方输入
+- 你配置的速度/时间和能量的产生/消耗在游戏中可能不完全一致，这取决于你的粘液刻。粘液刻是适应性的，所以物品描述中会显示当前粘液刻所对应的正确时间（真实时间）
+- 当合成配方或机器输入/输出的“type”设置为“NONE”时，其下的所有字段都可以忽略。
+- 如果您更新了SlimeCustomizer，并且SlimeCustomizer添加了新功能，新功能可能会出现在与上述示例不同的位置。请随意移动它们。
 
-## Permissions
-| **Permission** | **Description** |
+## 权限
+| **权限** | **描述** |
 | --------------------- | ---------------------------------------- |
-| slimecustomizer.admin | Access to SlimeCustomizer admin commands |
+| slimecustomizer.admin | 允许使用SlimeCustomizer的管理员指令 |
 
-## Commands
-| **Command** | **Permission** | **Parameters** | **Description** |
+## 指令
+| **指令** | **权限** | **参数** | **描述** |
 | ----------- | -------------- | -------------- | --------------- |
-| saveitem | slimecustomizer.admin | | Saves the item in your hand to a yml file. Read #saving-an-item for more info. |
-| give | slimecustomizer.admin | \<player_name\> \<item_id\> \<amount\> | Used to give an item to a player. |
-| getsaveditem | slimecustomizer.admin | gui / \<item_id\> \<player_name\> \<amount\> | Used to get/give a saveditem. |
+| saveitem | slimecustomizer.admin | | 保存你手中的物品并转化为saveditem文件中的yml文件. 阅读 #如何保存物品 以获取更多信息. |
+| give | slimecustomizer.admin | \<player_name\> \<item_id\> \<amount\> | 给予玩家物品. |
+| getsaveditem | slimecustomizer.admin | gui / \<item_id\> \<player_name\> \<amount\> | 用于获取/给予保存物品 |
 
-## Compatability with other Slimefun addons
-To be compatible with items from other addons, SlimeCustomizer softdepends the following:
+## 与其他粘液科技附属的兼容性
+为了与其他粘液科技附属中的物品兼容，SlimeCustomizer软依赖于以下附属:
   - ChestTerminal
   - ColoredEnderChests
   - DyedBackpacks
@@ -537,28 +538,10 @@ To be compatible with items from other addons, SlimeCustomizer softdepends the f
   - MissileWarfare
   - SensibleToolbox
 
-It is highly unlikely that new addons will be added to this list. If you are making a new addon or own a private addon and wish to it in SlimeCustomizer, add the following to your `plugin.yml`
+新的附属不太可能被添加到这个列表中。如果您正在制作一个新的附属或拥有一个私人附属，并希望在SlimeCustomizer中使用它，请在你的plugin.yml中添加以下内容
 ```yaml
 loadbefore:
     - SlimeCustomizer
 ```
 
-## Changelog
-- DEV 1:
-    - Release of SlimeCustomizer!
-    - Build your own [custom machines](#adding-your-machine) and [custom generators](#adding-your-generator)
-- DEV 2:
-    - Updated to no longer require CS-CoreLib
-- DEV 3:
-    - Added multi-line lore support
-    - Added support for other multiblocks (If you have a preexisting config, this key will be smashed onto the bottom. Feel free to reorganize!)
-    - Added support for machines to have 2 inputs and/or outputs
-    - Added [custom items](#adding-your-item)
-    - Added [custom categories](#adding-your-category)
-    - Added new commands
-- DEV 4:
-    - Machine bug fix
-- DEV 5:
-    - Added [solar generators](#adding-your-solar-generator)
-
-Have any questions? Join the Slimefun discord at https://discord.gg/slimefun/
+对上述教程还有什么不懂的，可加QQ群：205679802 讨论
