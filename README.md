@@ -39,7 +39,7 @@ slime_customizer:
 
 | 内容 | 描述 |
 | -------- | -------- |
-| slime_customizer | 这是分类的ID. 如果你要创造不同的分类，你需要更改/额外添加此ID! |
+| slime_customizer | 这是分类的ID. 如果你要添加不同的分类，你需要更改/额外添加此ID! |
 | category-name | 这是显示在粘液科技书里的分类名 |
 | category-item | 这里需要填入原版物品ID或者头颅（格式Skull+URL） |
 
@@ -105,7 +105,7 @@ EXAMPLE_ITEM:
 
 | 内容 | 描述 | 有效输入 |
 | --- | ----------- | ----------------- |
-| EXAMPLE_ITEM | 这是物品的ID.如果你要创造不同的物品，你需要更改/额外添加此ID! |
+| EXAMPLE_ITEM | 这是物品的ID.如果你要添加不同的物品，你需要更改/额外添加此ID! |
 | category | 此项输入物品所在分类的ID，即你之前创建的分类ID |
 | item-type | 这是你物品注册的方式 | CUSTOM (填入此时，你可以自定义物品名称、描述、种类), SAVEDITEM (从saveditems文件里加载物品，下文会讲) |
 | item-name | 这是物品的名称 |
@@ -115,7 +115,7 @@ EXAMPLE_ITEM:
 | placeable | 物品是否可放置。不要放置工具等本来就无法放置的物品！ |
 | crafting-recipe-type | 制作此物品所用的多块机器 | ENHANCED_CRAFTING_TABLE（强化工作台）, MAGIC_WORKBENCH（魔法工作台）, ARMOR_FORGE（盔甲锻造台）, COMPRESSOR（压缩机）, PRESSURE_CHAMBER（压力舱）, SMELTERY（冶炼炉）, ORE_CRUSHER（矿石粉碎机）, GRIND_STONE（磨石）, NONE (无法被合成) |
 | crafting-recipe.#.type | 物品的种类 | NONE (无物品), SLIMEFUN, SAVEDITEM |
-| crafting-recipe.#.id | 物品ID |
+| crafting-recipe.#.id | 原版/保存物品的物品ID（保存物品ID为saveditem文件夹里对应已保存物品的文件名（默认为数字）） |
 | crafting-recipe.#.amount | 物品的数量 |
 
 *这些物品也可用于您的自定义机器/发电机！*
@@ -123,9 +123,9 @@ EXAMPLE_ITEM:
 
 *Slimefun物品在其元数据中会标记有关键字，以便Slimefun可以识别它们。为了确保您的SAVEDITEM在需要被其他插件识别时不会有冲突，这个标签被移除了。但是自定义物品仍有此标签。因此，在SAVEDITEM上使用`/sf give '可能会干扰其他插件，因为它将被其它插件标记。若要获取该物品的未标记版本，请改用`/sc give'。*
 
-##### Adding your machine
-1. Open the `machines.yml` file, located at `\<YOUR_SERVER_LOCATION>\plugins\SlimeCustomizer`
-The table below explains what each key does.
+##### 添加你的机器
+1. 打开`machines.yml`文件, 定位至`\<YOUR_SERVER_LOCATION>\plugins\SlimeCustomizer`
+下表展示了每块的内容
 
 ```yaml
 EXAMPLE_MACHINE:
@@ -218,30 +218,31 @@ EXAMPLE_MACHINE:
           id: N/A
           amount: 1
 ```
-| Key | Description | Acceptable Inputs |
+| 内容 | 描述 | 有效输入 |
 | --- | ----------- | ----------------- |
-| EXAMPLE_MACHINE | The ID of the machine. You can change this key! |
-| category | The key of the category that this item will be under in the Slimefun guide.
-| machine-name | The name of the machine. |
-| machine-lore | The lore of the machine. |
-| block-type | The vanilla ID or skull hash of the material this item will use. | 
-| progress-bar-item | The vanilla ID of the progress bar item. |
-| stats.energy-consumption | The amount of energy consumed by this machine per Slimefun tick. |
-| stats.energy-buffer | The amount of energy that can be stored in this machine. |
-| crafting-recipe-type | The multiblock machine that this item will be crafted in. | ENHANCED_CRAFTING_TABLE, MAGIC_WORKBENCH, ARMOR_FORGE, COMPRESSOR, PRESSURE_CHAMBER, SMELTERY, ORE_CRUSHER, GRIND_STONE, NONE (Can not be crafted with multiblocks) |
-| crafting-recipe.#.type | The type of item. | NONE (Empty spot, all other fields will be ignored), VANILLA, SLIMEFUN, SAVEDITEM |
-| crafting-recipe.#.id | The id of the item based on the type. |
-| crafting-recipe.#.amount | The amount of the item to use in the recipe. Enhanced Crafting Table only accepts 1. |
-| recipes.#.speed-in-seconds | The time it takes for the recipe to complete. |
-| recipes.#.input/output.#.type | The type of item. | NONE (Empty spot, all other fields will be ignored), VANILLA, SLIMEFUN, SAVEDITEM |
-| recipes.#.input/output.#.id | The id of the item based on the type. |
-| recipes.#.input/output.#.amount | The amount of items. |
+| EXAMPLE_MACHINE | 这是机器的ID.如果你要添加不同的机器，你需要更改/额外添加此ID! |
+| category | 此项输入机器所在分类的ID，即你之前创建的分类ID |
+| machine-name | 这是机器的名称 |
+| machine-lore | 这是机器的描述 |
+| block-type | 这里需要填入原版物品ID或者头颅（格式Skull+URL） | 
+| progress-bar-item | 这里需要填入原版物品ID，这决定了机器的进度栏物品 |
+| stats.energy-consumption | 这台机器每粘液刻消耗的能量，最大为2147483647 |
+| stats.energy-buffer | 这台机器可储存的能量，最大为2147483647 |
+| crafting-recipe-type | 制作此物品所用的多块机器 | ENHANCED_CRAFTING_TABLE（强化工作台）, MAGIC_WORKBENCH（魔法工作台）, ARMOR_FORGE（盔甲锻造台）, COMPRESSOR（压缩机）, PRESSURE_CHAMBER（压力舱）, SMELTERY（冶炼炉）, ORE_CRUSHER（矿石粉碎机）, GRIND_STONE（磨石）, NONE (无法被合成) |
+| crafting-recipe.#.type | 物品种类 | NONE (无物品), VANILLA, SLIMEFUN, SAVEDITEM |
+| crafting-recipe.#.id | 原版/粘液科技/保存物品的物品ID |
+| crafting-recipe.#.amount | 合成该机器所需物品的数量，高级工作台所需物品数量仅能为1. |
+| recipes.#.speed-in-seconds | 输出物品所需时间，最大为2147483647 |
+| recipes.#.input/output.#.type | 物品的种类 | NONE (无物品), VANILLA, SLIMEFUN, SAVEDITEM |
+| recipes.#.input/output.#.id | 原版/粘液科技/保存物品的物品ID |
+| recipes.#.input/output.#.amount | 输入/输出物品数量 |
 
-*There can as many recipes as you want, but only be 2 inputs and 2 outputs for each recipe*
+*提示:查看粘液科技物品ID，可在游戏内手持该粘液科技物品，输入/sf id以查看*
+*每台机器只能有两种物品的输入/输出*
 
-##### Adding your generator
-1. Open the `generators.yml` file, located at `\<YOUR_SERVER_LOCATION>\plugins\SlimeCustomizer`
-The table below explains what each key does.
+##### 添加你的发电机
+1. 打开 `generators.yml` 文件,定位至`\<YOUR_SERVER_LOCATION>\plugins\SlimeCustomizer`
+下表展示了每块的内容
 
 ```yaml
 EXAMPLE_GENERATOR:
@@ -314,9 +315,9 @@ EXAMPLE_GENERATOR:
         id: BIRCH_PLANKS
         amount: 1
 ```
-| Key | Description | Acceptable Inputs |
+| 内容 | 描述 | 有效输入 |
 | --- | ----------- | ----------------- |
-| EXAMPLE_GENERATOR | The ID of the generator. You can change this key! |
+| EXAMPLE_GENERATOR | 这是机器的ID.如果你要添加不同的机器，你需要更改/额外添加此ID! |
 | category | The key of the category that this item will be under in the Slimefun guide.
 | generator-name | The name of the generator. |
 | generator-lore | The lore of the generator. |
