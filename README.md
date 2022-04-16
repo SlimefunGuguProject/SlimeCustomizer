@@ -110,18 +110,18 @@ EXAMPLE_ITEM:
 | item-type | 这是你物品注册的方式 | CUSTOM (填入此时，你可以自定义物品名称、描述、种类), SAVEDITEM (从saveditems文件里加载物品，下文会讲) |
 | item-name | 这是物品的名称 |
 | item-lore | 这是物品的描述 |
-| item-id | The vanilla ID or skull hash of the material this item will use. |
-| item-amount | The amount of this item crafted at once. |
-| placeable | If the item is placeable or not. DO NOT MAKE TOOLS PLACEABLE! |
-| crafting-recipe-type | The multiblock machine that this item will be crafted in. | ENHANCED_CRAFTING_TABLE, MAGIC_WORKBENCH, ARMOR_FORGE, COMPRESSOR, PRESSURE_CHAMBER, SMELTERY, ORE_CRUSHER, GRIND_STONE, NONE (Can not be crafted with multiblocks) |
-| crafting-recipe.#.type | The type of item. | NONE (Empty spot, all other fields will be ignored), SLIMEFUN, SAVEDITEM |
-| crafting-recipe.#.id | The id of the item. |
-| crafting-recipe.#.amount | The amount of the item. |
+| item-id | 这里需要填入原版物品ID或者头颅（格式Skull+URL） |
+| item-amount | 一次合成该物品时所输出的数量 |
+| placeable | 物品是否可放置。不要放置工具等本来就无法放置的物品！ |
+| crafting-recipe-type | 制作此物品所用的多块机器 | ENHANCED_CRAFTING_TABLE（强化工作台）, MAGIC_WORKBENCH（魔法工作台）, ARMOR_FORGE（盔甲锻造台）, COMPRESSOR（压缩机）, PRESSURE_CHAMBER（压力舱）, SMELTERY（冶炼炉）, ORE_CRUSHER（矿石粉碎机）, GRIND_STONE（磨石）, NONE (无法被合成) |
+| crafting-recipe.#.type | 物品的种类 | NONE (无物品), SLIMEFUN, SAVEDITEM |
+| crafting-recipe.#.id | 物品ID |
+| crafting-recipe.#.amount | 物品的数量 |
 
-*These items CAN be used in your custom machines/generators as well!*
-*All registered CUSTOM items can be referred to with their id under the type SLIMEFUN. If you want to use an item inside items.yml as a crafting component for another item, it the crafting component must be registered beforehand.*
+*这些物品也可用于您的自定义机器/发电机！*
+*所有已注册的自定义物品都可以通过crafting-recipe.#.type为SLIMEFUN下填入你自定义物品的id来引用该自定义物品（可作为配方材料，输入输出等）。 如果你想使用items.yml中的一个物品作为另一个物品的制作材料，那么这个制作材料必须事先注册。(注意材料注册顺序，处在越靠前的材料最先注册，如果一个物品处在另一个物品的上方，但上方的物品需要用到下方的物品作为配方，那么上方的物品需要在游戏里手持该物品，输入/sfc saveitem来保存该物品)*
 
-*Slimefun items are tagged with a key in their metadata so that they are recognized by Slimefun. To make sure that your SAVEDITEMs do not have conflicts if they need to be recognized by other plugins, this tag is removed. CUSTOM items still have this tag. Because of this, using `/sf give` on a SAVEDITEM may interfere with other plugins since it will be tagged. To get the untagged version of this item, use `/sc give` instead.*
+*Slimefun物品在其元数据中会标记有关键字，以便Slimefun可以识别它们。为了确保您的SAVEDITEM在需要被其他插件识别时不会有冲突，这个标签被移除了。但是自定义物品仍有此标签。因此，在SAVEDITEM上使用`/sf give '可能会干扰其他插件，因为它将被其它插件标记。若要获取该物品的未标记版本，请改用`/sc give'。*
 
 ##### Adding your machine
 1. Open the `machines.yml` file, located at `\<YOUR_SERVER_LOCATION>\plugins\SlimeCustomizer`
