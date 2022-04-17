@@ -542,6 +542,29 @@ SlimeCustomizer 支持所有自定义物品! 这些物品可以来自其他插�
   - VillagerUtil
   - MissileWarfare
   - SensibleToolbox
+  - Endrex
+  - Bump
+  - FinalTech
+  - FutureTech
+  - bedrocktechnology
+  - SlimefunItemExpansion
+  - SupplementalServiceableness
+  - GuizhanCraft
+  - UltimateGenerators-RC27
+  - CrispyMachine
+  - DimensionTraveler
+  - Chocohills
+  - draconic
+  - EzSFAddon
+  - RandomExpansion
+  - ExLimus
+  - MoneyAndThings
+  - VoidHarvesters
+  - SlimyBees
+  - GeneticManipulation
+  - ObsidianExpansion
+  - NotEnoughAddons
+  - SlimeSec
 
 新的附属不太可能被添加到这个列表中。如果您正在制作一个新的附属或拥有一个私人附属，并希望在SlimeCustomizer中使用它，请在你的plugin.yml中添加以下内容
 ```yaml
