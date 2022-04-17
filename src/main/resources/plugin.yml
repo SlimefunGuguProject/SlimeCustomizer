@@ -72,6 +72,29 @@ softdepend:
   - VillagerUtil
   - MissileWarfare
   - SensibleToolbox
+  - Endrex
+  - Bump
+  - FinalTech
+  - FutureTech
+  - bedrocktechnology
+  - SlimefunItemExpansion
+  - SupplementalServiceableness
+  - GuizhanCraft
+  - UltimateGenerators-RC27
+  - CrispyMachine
+  - DimensionTraveler
+  - Chocohills
+  - draconic
+  - EzSFAddon
+  - RandomExpansion
+  - ExLimus
+  - MoneyAndThings
+  - VoidHarvesters
+  - SlimyBees
+  - GeneticManipulation
+  - ObsidianExpansion
+  - NotEnoughAddons
+  - SlimeSec
 
   ## This value is automatically replaced by the version specified in your pom.xml file, do not change this.
 version: ${project.version}
