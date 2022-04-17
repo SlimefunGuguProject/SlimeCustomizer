@@ -7,14 +7,18 @@
 </p>
 
 ### 展示
-*Want to see what SlimeCustomizer can do? Visit `play.royale-mc.com` and take a look at their custom items! All showcase image credits go to Azakaturan.*
+*想要看看SlimeCustomizer的成果如何? 访问IP`wdsj.fit:6896`看看其中的海曼科技! 海曼科技就是用SlimeCustomizer编写而成的！或许海曼科技可以给你带来点启发！*
 
-![Resources](https://user-images.githubusercontent.com/31554056/110004177-c124dd00-7cdc-11eb-8031-3c1feeec228e.png)\
-![Category](https://user-images.githubusercontent.com/31554056/110005314-f2ea7380-7cdd-11eb-9090-36017111cbf1.png)
-![Electric Ingot Factory IV](https://user-images.githubusercontent.com/31554056/110005311-f251dd00-7cdd-11eb-905a-55d4a86ff5d0.png)
-![Heated Redstone](https://user-images.githubusercontent.com/31554056/110005901-9cca0000-7cde-11eb-846c-2a1bd5b2c900.png)
-![Charcoal Kiln](https://user-images.githubusercontent.com/31554056/110005316-f2ea7380-7cdd-11eb-8bd3-d95d50b25be6.png)
-![Heated Carbon Press](https://user-images.githubusercontent.com/31554056/110005318-f3830a00-7cdd-11eb-871b-6b9fa733231a.png)
+![$$5S%`MFTE@G}_HC}7PVS}S](https://user-images.githubusercontent.com/83174104/163699824-97081e94-e31c-4f55-a5a4-3a66e2b68484.png)
+![I6VSEX7N0 PU62@962LT(N](https://user-images.githubusercontent.com/83174104/163699843-7ee4bbfb-ee2d-44b4-9a96-416ecbf61b0d.png
+![IW I822IAH$I 454_GFKC~3](https://user-images.githubusercontent.com/83174104/163699853-cca04258-617a-4f77-9457-b523761b34a9.png)
+![2)) B{FD~9B6D346PA S3%F](https://user-images.githubusercontent.com/83174104/163699856-e2736a6d-0503-47e2-be6f-0e0d5a756133.png)
+![QZ_YRSEAD~3H%HK8~3`)T_A](https://user-images.githubusercontent.com/83174104/163699865-77285c5b-6b5b-4f0e-b313-40a5d8c1f20f.png)
+![~6DA6F@_ZXLD@R5_MPK((@E](https://user-images.githubusercontent.com/83174104/163699875-bda248e5-cd88-40be-bd5e-61baa083c2d5.png)
+![_0L(9MJ`3K0{DQ)VI%~X$`Y](https://user-images.githubusercontent.com/83174104/163699896-fa55a9ef-499d-4f81-b9f6-76690414eed1.png)
+![$JRUW4B2WB7Z05SI{_CMFCS](https://user-images.githubusercontent.com/83174104/163699903-f654c562-048e-48b0-83a8-8f128e9f5fce.png)
+![TSU{(1L}NSX6JZ~5 N5)%LN](https://user-images.githubusercontent.com/83174104/163699914-a885184e-53f5-4adb-9da8-f49600f48a50.png)
+
 
 #### 汇报bug
 汉化版SlimeCustomizer请在此汇报bug [issue](https://github.com/SlimefunGuguProject/SlimeCustomizer).
