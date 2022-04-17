@@ -9,6 +9,7 @@
 ### 展示
 *想要看看SlimeCustomizer的成果如何? 访问IP`wdsj.fit:6896`看看其中的海曼科技! 海曼科技就是用SlimeCustomizer编写而成的！或许海曼科技可以给你带来点启发！*
 
+![D01SE T6S)QY7 %D85AW0~M](https://user-images.githubusercontent.com/83174104/163699938-8d7c0084-34fd-4d99-9d77-b2454c883669.png)
 ![$$5S%`MFTE@G}_HC}7PVS}S](https://user-images.githubusercontent.com/83174104/163699824-97081e94-e31c-4f55-a5a4-3a66e2b68484.png)
 ![I6VSEX7N0 PU62@962LT(N](https://user-images.githubusercontent.com/83174104/163699843-7ee4bbfb-ee2d-44b4-9a96-416ecbf61b0d.png
 ![IW I822IAH$I 454_GFKC~3](https://user-images.githubusercontent.com/83174104/163699853-cca04258-617a-4f77-9457-b523761b34a9.png)
