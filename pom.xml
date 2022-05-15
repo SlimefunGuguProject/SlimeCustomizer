@@ -46,6 +46,7 @@
                 <filtering>true</filtering>
                 <includes>
                     <include>*</include>
+                    <include>saveditems/*.yml</include>
                 </includes>
             </resource>
         </resources>
