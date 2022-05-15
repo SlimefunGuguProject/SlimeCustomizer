@@ -338,7 +338,9 @@ EXAMPLE_GENERATOR:
 | recipes.#.input/output.type | 物品的种类 | NONE (无物品), VANILLA, SLIMEFUN, SAVEDITEM |
 | recipes.#.input/output.id | 原版/粘液科技/保存物品的物品ID |
 | recipes.#.input/output.amount | 输入/输出物品数量 |
-
+  
+注意:空气Air的数量只能为0
+  
 ##### 添加你的太阳能发电机
 1. 打开`solar-generators.yml` file, located at `\<YOUR_SERVER_LOCATION>\plugins\SlimeCustomizer`
 下表展示了每块的内容
