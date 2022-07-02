@@ -12,6 +12,7 @@ import io.ncbpfluffybear.slimecustomizer.registration.Generators;
 import io.ncbpfluffybear.slimecustomizer.registration.Items;
 import io.ncbpfluffybear.slimecustomizer.registration.Machines;
 import io.ncbpfluffybear.slimecustomizer.registration.MobDrops;
+import io.ncbpfluffybear.slimecustomizer.registration.Researches;
 import io.ncbpfluffybear.slimecustomizer.registration.SolarGenerators;
 import lombok.SneakyThrows;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
@@ -88,6 +89,9 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
         final File solarGeneratorsFile = new File(getInstance().getDataFolder(), "solar-generators.yml");
         copyFile(solarGeneratorsFile, "solar-generators");
 
+        final File researchesFile = new File(getInstance().getDataFolder(), "researches.yml");
+        copyFile(researchesFile, "researches");
+
 
         /*
         final File passiveMachinesFile = new File(getInstance().getDataFolder(), "passive-machines.yml");
@@ -116,6 +120,7 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
         Config generators = new Config(this, "generators.yml");
         Config solarGenerators = new Config(this, "solar-generators.yml");
         Config passiveMachines = new Config(this, "passive-machines.yml");
+        Config researches = new Config(this, "researches.yml");
 
         this.getCommand("slimecustomizer").setTabCompleter(new SCTabCompleter());
 
@@ -126,6 +131,7 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
         if (!Machines.register(machines)) {return;}
         if (!Generators.register(generators)) {return;}
         if (!SolarGenerators.register(solarGenerators)) {return;}
+        if (!Researches.register(researches)) {return;}
         Bukkit.getPluginManager().registerEvents(new Events(), instance);
     }
 
