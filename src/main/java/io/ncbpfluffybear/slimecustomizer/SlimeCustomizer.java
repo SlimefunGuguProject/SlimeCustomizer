@@ -18,6 +18,7 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.config.Config;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
+import net.guizhanss.guizhanlib.updater.GuizhanBuildsUpdater;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -29,6 +30,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -60,8 +62,8 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
         // Read something from your config.yml
         Config cfg = new Config(this);
 
-        if (cfg.getBoolean("options.auto-update") && getDescription().getVersion().startsWith("DEV - ")) {
-            new GitHubBuildsUpdater(this, getFile(), "NCBPFluffyBear/SlimeCustomizer/master/").start();
+        if (cfg.getBoolean("options.auto-update") && getDescription().getVersion().startsWith("Build")) {
+            new GuizhanBuildsUpdater(this, getFile(), "SlimefunGuguProject", "SlimeCustomizer", "master", false, "zh-CN").start();
         }
 
         final Metrics metrics = new Metrics(this, 9841);
@@ -76,10 +78,8 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
         final File itemsFile = new File(getInstance().getDataFolder(), "items.yml");
         copyFile(itemsFile, "items");
 
-
         final File machinesFile = new File(getInstance().getDataFolder(), "machines.yml");
         copyFile(machinesFile, "machines");
-
 
         final File generatorsFile = new File(getInstance().getDataFolder(), "generators.yml");
         copyFile(generatorsFile, "generators");
@@ -105,7 +105,7 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
             try {
                 Files.createDirectory(itemsFolder.toPath());
             } catch (IOException e) {
-                getInstance().getLogger().log(Level.SEVERE, "Failed to create saveditems folder", e);
+                getInstance().getLogger().log(Level.SEVERE, "无法创建文件夹: saveditems", e);
             }
         }
 
@@ -115,17 +115,18 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
         Config machines = new Config(this, "machines.yml");
         Config generators = new Config(this, "generators.yml");
         Config solarGenerators = new Config(this, "solar-generators.yml");
-        Config passiveMachines = new Config(this, "passive-machines.yml");
 
         this.getCommand("slimecustomizer").setTabCompleter(new SCTabCompleter());
 
-        Bukkit.getLogger().log(Level.INFO, "[SlimeCustomizer] " + ChatColor.BLUE + "Setting up custom stuff...");
+        Bukkit.getLogger().log(Level.INFO, "[自定义粘液附属] " + ChatColor.BLUE + "正在初始化自定义粘液附属...");
+
         if (!Categories.register(categories)) {return;}
         if (!MobDrops.register(mobDrops)) {return;}
         if (!Items.register(items)) {return;}
         if (!Machines.register(machines)) {return;}
         if (!Generators.register(generators)) {return;}
         if (!SolarGenerators.register(solarGenerators)) {return;}
+
         Bukkit.getPluginManager().registerEvents(new Events(), instance);
     }
 
@@ -145,13 +146,13 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
             }
 
             if (!itemFile.createNewFile()) {
-                getInstance().getLogger().log(Level.SEVERE, "Failed to create config for item " + id);
+                getInstance().getLogger().log(Level.SEVERE, "无法创建该物品的配置: " + id);
             }
 
             Config itemFileConfig = new Config(this, "saveditems/" + id + ".yml");
             itemFileConfig.setValue("item", p.getInventory().getItemInMainHand());
             itemFileConfig.save();
-            Utils.send(p, "&e你的物品以保存于 " + itemFile.getPath() + ". 请参考 " +
+            Utils.send(p, "&e你的物品已保存于 " + itemFile.getPath() + ". 请参考 " +
                 "&9" + Links.USING_CUSTOM_ITEMS);
 
         } else if (args[0].equals("give") && args.length > 2) {
@@ -254,7 +255,7 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
                         target.getWorld().dropItem(target.getLocation(), leftover);
                     }
 
-                    Utils.send(sender, "&b你已经给予 " + target.getName() + " &a" + amount + " &bof &7\"&a" +
+                    Utils.send(sender, "&b你已经给予 " + target.getName() + " &a" + amount + " &b个 &7\"&a" +
                             savedID + "&7\"");
                 } else {
                     Utils.send(sender, "&c保存物品未找到!");
@@ -287,7 +288,7 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
             if (item != null) {
                 ItemMeta im = item.getItemMeta();
                 if (im == null) {
-                    Utils.notify("An item has no metadata! Is it corrupted? " + items.get(itemIndex).getFirstValue());
+                    Utils.notify("这个物品没有元数据! 貌似出了点问题? " + items.get(itemIndex).getFirstValue());
                     continue;
                 }
                 List<String> lore = im.getLore();
@@ -343,7 +344,7 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
 
     private void giveItems(CommandSender s, Player p, SlimefunItem sfItem, int amount) {
         p.getInventory().addItem(new CustomItemStack(sfItem.getRecipeOutput(), amount));
-        Utils.send(s, "&b你已给予 " + p.getName() + " &a" + amount + " &7\"&b" + sfItem.getItemName() + "&7\"");
+        Utils.send(s, "&b你已给予 " + p.getName() + " &a" + amount + "&b个 &7\"&b" + sfItem.getItemName() + "&7\"");
     }
 
     private void copyFile(File file, String name) {
@@ -351,7 +352,7 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
             try {
                 Files.copy(this.getClass().getResourceAsStream("/"+ name + ".yml"), file.toPath());
             } catch (IOException e) {
-                getInstance().getLogger().log(Level.SEVERE, "Failed to copy default " + name + ".yml file", e);
+                getInstance().getLogger().log(Level.SEVERE, "无法加载默认配置文件 " + name + ".yml", e);
             }
         }
     }
@@ -363,10 +364,11 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
 
     @Override
     public String getBugTrackerURL() {
-        return "https://github.com/NCBPFluffyBear/SlimeCustomizer/issues";
+        return "https://github.com/SlimefunGuguProject/SlimeCustomizer/issues";
     }
 
     @Override
+    @Nonnull
     public JavaPlugin getJavaPlugin() {
         return this;
     }

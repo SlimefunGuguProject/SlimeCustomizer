@@ -22,7 +22,7 @@ public class Categories {
 
     public static boolean register(Config categories) {
         if (categories.getKeys().isEmpty()) {
-            Utils.disable("No categories were found! Please add and use a category from categories.yml");
+            Utils.disable("没有任何分类！请在 categories.yml 中至少添加一个分类。");
             return false;
         }
 
@@ -34,7 +34,7 @@ public class Categories {
 
             /* Item material type */
             if ((material == null && !materialString.startsWith("SKULL"))) {
-                Utils.disable("The category-item for " + categoryKey + " is invalid!");
+                Utils.disable(categoryKey + " 的 category-item 设置无效!");
                 return false;
             } else if (material != null) {
                 item = new ItemStack(material);
@@ -48,7 +48,7 @@ public class Categories {
             AtomicBoolean disable = new AtomicBoolean(false);
             SlimeCustomizer.allCategories.forEach((key, storedCategory) -> {
                 if (key.equalsIgnoreCase(categoryKey)) {
-                    Utils.disable("The category " + categoryKey + " has already been registered!");
+                    Utils.disable("分类 " + categoryKey + " 已被注册！你似乎设置了重复的分类ID？");
                     disable.set(true);
                 }
             });
@@ -57,7 +57,7 @@ public class Categories {
             }
 
             SlimeCustomizer.allCategories.put(categoryKey, tempCategory);
-            Utils.notify("Category " + categoryKey + " has been registered!");
+            Utils.notify("已注册分类 " + categoryKey + "!");
 
         }
 

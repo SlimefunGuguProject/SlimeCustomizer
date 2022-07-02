@@ -25,8 +25,8 @@ public class Machines {
     public static boolean register(Config machines) {
         for (String machineKey : machines.getKeys()) {
             if (machineKey.equals("EXAMPLE_MACHINE")) {
-                SlimeCustomizer.getInstance().getLogger().log(Level.WARNING, "Your machines.yml file still contains " +
-                    "the example machine! Did you forget to set up the plugin?");
+                SlimeCustomizer.getInstance().getLogger().log(Level.WARNING, "machines.yml 中仍包含示例机器! " +
+                    "你是不是忘记配置了?");
             }
 
             SCMachine machine = new SCMachine(machines, machineKey, "machine");

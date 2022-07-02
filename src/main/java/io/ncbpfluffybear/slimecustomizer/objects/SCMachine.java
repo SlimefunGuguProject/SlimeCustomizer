@@ -60,7 +60,7 @@ public class SCMachine {
         /* Machine block type */
         Material material = Material.getMaterial(materialString);
         if ((material == null || !material.isBlock()) && !materialString.startsWith("SKULL")) {
-            Utils.disable("The block-type for " + key + " MUST be a block!");
+            Utils.disable(key + "的 block-type 必须为方块!");
         } else if (material != null && material.isBlock()) {
             block = new ItemStack(material);
         } else if (materialString.startsWith("SKULL")) {

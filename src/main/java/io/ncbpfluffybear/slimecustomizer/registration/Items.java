@@ -14,6 +14,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Level;
 
 /**
@@ -27,37 +28,45 @@ public class Items {
     public static boolean register(Config items) {
         for (String itemKey : items.getKeys()) {
             if (itemKey.equals("EXAMPLE_ITEM")) {
-                SlimeCustomizer.getInstance().getLogger().log(Level.WARNING, "Your items.yml file still contains the example item! " +
-                    "Did you forget to set up the plugin?");
+                SlimeCustomizer.getInstance().getLogger().log(Level.WARNING, "items.yml 仍包含示例物品! " +
+                    "你是不是忘记配置了?");
             }
 
             // Update config for new "placeable" option
             Utils.updatePlaceableOption(items, itemKey);
 
-            String itemType = items.getString(itemKey + ".item-type");
-            String materialString = items.getString(itemKey + ".item-id").toUpperCase();
-            SlimefunItemStack tempStack;
-            ItemStack item = null;
-            int amount;
-            boolean placeable = items.getBoolean(itemKey + ".placeable");
-
             ItemGroup category = Utils.getCategory(items.getString(itemKey + ".category"), itemKey);
-            if (category == null) {return false;}
-
-            try {
-                amount = Integer.parseInt(items.getString(itemKey + ".item-amount"));
-            } catch (NumberFormatException e) {
-                Utils.disable("The item-amount for " + itemKey + " must be a positive integer!");
+            if (category == null) {
                 return false;
             }
 
-            if (itemType.equalsIgnoreCase("CUSTOM")) {
+            String itemType = items.getString(itemKey + ".item-type");
+            String materialString = items.getString(itemKey + ".item-id");
+            SlimefunItemStack tempStack;
+            ItemStack item = null;
+            int amount = items.getOrSetDefault(itemKey + ".item-amount", 1);
+            boolean placeable = items.getBoolean(itemKey + ".placeable");
 
+            if (itemType == null) {
+                Utils.disable(itemKey + "未设置 item-type!");
+                return false;
+            }
+            if (materialString == null) {
+                Utils.disable(itemKey + "未设置 item-id!");
+                return false;
+            }
+            if (amount < 1) {
+                Utils.disable(itemKey + "的 item-amount 必须为正整数!");
+                return false;
+            }
+            materialString = materialString.toUpperCase(Locale.ROOT);
+
+            if (itemType.equalsIgnoreCase("CUSTOM")) {
                 Material material = Material.getMaterial(materialString);
 
                 /* Item material type */
-                if ((material == null && !materialString.startsWith("SKULL"))) {
-                    Utils.disable("The item-id for " + itemKey + " is invalid!");
+                if (material == null && !materialString.startsWith("SKULL")) {
+                    Utils.disable(itemKey + "的 item-id 无效!");
                     return false;
                 } else if (material != null) {
                     item = new ItemStack(material);
@@ -82,15 +91,14 @@ public class Items {
 
                 tempStack = new SlimefunItemStack(itemKey, item);
             } else {
-                Utils.disable("The item-id for " + itemKey + " can only be CUSTOM or SAVEDITEM!");
+                Utils.disable(itemKey + "的 item-type 只能为 CUSTOM 或 SAVEDITEM!");
                 return false;
             }
 
-            String recipeTypeString = items.getString(itemKey + ".crafting-recipe-type").toUpperCase();
+            String recipeTypeString = items.getString(itemKey + ".crafting-recipe-type");
             RecipeType recipeType = Utils.getRecipeType(recipeTypeString, itemKey);
             if (recipeType == null) {
-                Utils.disable("The crafting-recipe-type for " + itemKey + " is not valid! Refer to the wiki to see" +
-                    " acceptable inputs.");
+                Utils.disable(itemKey + "的 crafting-recipe-type 无效! 请查阅wiki.");
                 return false;
             }
 
@@ -116,7 +124,7 @@ public class Items {
                 }
             }
 
-            Utils.notify("Item " + itemKey + " has been registered!");
+            Utils.notify("已注册物品 " + itemKey + "!");
         }
 
         return true;
