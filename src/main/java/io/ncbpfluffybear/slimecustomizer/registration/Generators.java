@@ -26,9 +26,9 @@ public class Generators {
     public static boolean register(Config generators) {
         for (String generatorKey : generators.getKeys()) {
             if (generatorKey.equals("EXAMPLE_GENERATOR")) {
-                SlimeCustomizer.getInstance().getLogger().log(Level.WARNING, "Your generators.yml file still contains" +
-                    " the example generator! " +
-                    "Did you forget to set up the plugin?");
+                SlimeCustomizer.getInstance().getLogger().log(Level.WARNING, "你的generators.yml仍然保持" +
+                    "实例发电机! " +
+                    "是你忘记编辑了吗?");
             }
 
             SCMachine generator = new SCMachine(generators, generatorKey, "generator");
@@ -50,14 +50,12 @@ public class Generators {
                 try {
                     time = Integer.parseInt(generators.getString(path + ".time-in-seconds"));
                 } catch (NumberFormatException e) {
-                    Utils.disable("The time-in-seconds for recipe " + recipeKey + " for " + generatorKey
-                        + " must be a positive integer!");
+                    Utils.disable("在" + generatorKey + "的配方" + recipeKey + "里,time-in-seconds必须是正整数！");
                     return false;
                 }
 
                 if (time < 0) {
-                    Utils.disable("The time-in-seconds for recipe " + recipeKey + " for " + generatorKey
-                        + " must be a positive integer!");
+                    Utils.disable("在" + generatorKey + "的配方" + recipeKey + "里,time-in-seconds必须是正整数！");
                     return false;
                 }
 
@@ -77,8 +75,8 @@ public class Generators {
 
                     /* Validate amount */
                     if (i == 0 && type.equalsIgnoreCase("NONE")) {
-                        Utils.disable("The the input type for recipe " + recipeKey + " for " + generatorKey
-                            + " can only be VANILLA or SLIMEFUN!");
+                        Utils.disable("配方" + recipeKey + "的输入类型(目标发电机:" + generatorKey
+                            + ")只能为VANILLA或SLIMEFUN!");
                         return false;
                     }
 
