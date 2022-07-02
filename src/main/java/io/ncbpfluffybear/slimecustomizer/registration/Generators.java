@@ -27,7 +27,7 @@ public class Generators {
         for (String generatorKey : generators.getKeys()) {
             if (generatorKey.equals("EXAMPLE_GENERATOR")) {
                 SlimeCustomizer.getInstance().getLogger().log(Level.WARNING, "你的generators.yml仍然保持" +
-                    "实例发电机! " +
+                    "示例发电机! " +
                     "是你忘记编辑了吗?");
             }
 
