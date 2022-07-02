@@ -8,6 +8,7 @@ import io.ncbpfluffybear.slimecustomizer.Utils;
 import org.bukkit.NamespacedKey;
 
 import java.util.List;
+import java.util.logging.Level;
 
 public class Researches {
     public static boolean register(Config researches) {
@@ -16,6 +17,11 @@ public class Researches {
         }
 
         for (String researchKey : researches.getKeys()) {
+            if (researchKey.equals("example_research")) {
+                SlimeCustomizer.getInstance().getLogger().log(Level.WARNING, "researches.yml 中仍包含示例研究! " +
+                    "你是不是忘记配置了?");
+            }
+
             int researchId = researches.getInt(researchKey + ".id");
             String name = researches.getString(researchKey + ".name");
             int cost = researches.getInt(researchKey + ".cost");

@@ -42,9 +42,15 @@ public class SCMachine {
     public SCMachine(Config config, String key, String machineType) {
         this.config = config;
         this.key = key;
-        materialString = config.getString(key + ".block-type").toUpperCase();
-        progressItem = Material.getMaterial(config.getString(key + ".progress-bar-item").toUpperCase());
         this.machineType = machineType;
+
+        materialString = config.getString(key + ".block-type");
+
+        String progressString = config.getString(key + ".progress-bar-item");
+        if (progressString == null) {
+            Utils.disable(key + "的 progress-bar-item 必须为原版物品ID!");
+        }
+        progressItem = Material.getMaterial(progressString);
 
         validateMachineSettings();
         Utils.updateCraftingRecipeFormat(config, key);
@@ -69,7 +75,7 @@ public class SCMachine {
 
         /* Progress bar type */
         if (progressItem == null) {
-            Utils.disable("The progress-bar-item for " + key + " is not a valid vanilla ID!");
+            Utils.disable(key + "的 progress-bar-item 不是有效的原版物品ID!");
         }
 
         if (machineType.equalsIgnoreCase("machine")) {
@@ -78,11 +84,11 @@ public class SCMachine {
                 energyConsumption = Integer.parseInt(config.getString(key + ".stats.energy-consumption"));
                 energyBuffer = Integer.parseInt(config.getString(key + ".stats.energy-buffer"));
             } catch (NumberFormatException e) {
-                Utils.disable("The energy-consumption and energy-buffer for " + key + " must be a positive integer!");
+                Utils.disable(key + "的 energy-consumption 与 energy-buffer 必须为正整数!");
             }
 
             if (energyConsumption < 0 || energyBuffer < 0) {
-                Utils.disable("The energy-consumption and energy-buffer for " + key + " must be a positive integer!");
+                Utils.disable(key + "的 energy-consumption 与 energy-buffer 必须为正整数!");
             }
 
         } else if (machineType.equalsIgnoreCase("generator")) {
@@ -91,11 +97,11 @@ public class SCMachine {
                 energyProduction = Integer.parseInt(config.getString(key + ".stats.energy-production"));
                 energyBuffer = Integer.parseInt(config.getString(key + ".stats.energy-buffer"));
             } catch (NumberFormatException e) {
-                Utils.disable("The energy-consumption and energy-buffer for " + key + " must be a positive integer!");
+                Utils.disable(key + "的 energy-consumption 与 energy-buffer 必须为正整数!");
             }
 
             if (energyProduction < 0 || energyBuffer < 0) {
-                Utils.disable("The energy-production and energy-buffer for " + key + " must be a positive integer!");
+                Utils.disable(key + "的 energy-consumption 与 energy-buffer 必须为正整数!");
             }
         }
 
@@ -124,9 +130,9 @@ public class SCMachine {
 
     private String getMachineTag() {
         if (machineType.equalsIgnoreCase("machine")) {
-            return "&b" + Utils.capitalize(machineType);
+            return "&b机器";
         } else if (machineType.equalsIgnoreCase("generator")) {
-            return "&a" + Utils.capitalize(machineType);
+            return "&a发电机";
         }
 
         return null;

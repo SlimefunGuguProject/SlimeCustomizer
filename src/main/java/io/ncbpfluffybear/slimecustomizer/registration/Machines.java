@@ -53,14 +53,12 @@ public class Machines {
                 try {
                     speed = Integer.parseInt(machines.getString(path + ".speed-in-seconds"));
                 } catch (NumberFormatException e) {
-                    Utils.disable("The speed-in-seconds for recipe " + recipeKey + " for " + machineKey
-                        + " must be a positive integer!");
+                    Utils.disable(machineKey + "的机器配方 " + recipeKey + " 的 speed-in-seconds 必须为正整数!");
                     return false;
                 }
 
                 if (speed < 0) {
-                    Utils.disable("The speed-in-seconds for recipe " + recipeKey + " for " + machineKey
-                        + " must be a positive integer!");
+                    Utils.disable(machineKey + "的机器配方 " + recipeKey + " 的 speed-in-seconds 必须为正整数!");
                     return false;
                 }
 
@@ -84,22 +82,22 @@ public class Machines {
                         try {
                             amount = Integer.parseInt(machines.getString(path + "." + slot + "." + transIndex + ".amount"));
                         } catch (NumberFormatException e) {
-                            Utils.disable("The amount of " + slot + "s in " + slot + " number " + transIndex
-                                + " for recipe " + recipeKey + " for " + machineKey + " must be a positive integer!");
+                            Utils.disable(machineKey + "的配方 " + recipeKey + " 的第" + transIndex
+                                + "个" + slot + "物品的数量必须为正整数!");
                             return false;
                         }
 
                         if (amount < 0) {
-                            Utils.disable("The amount of " + slot + "s in " + slot + " number " + transIndex
-                                + " for recipe " + recipeKey + " for " + machineKey + " must be a positive integer!");
+                            Utils.disable(machineKey + "的配方 " + recipeKey + " 的第" + transIndex
+                                + "个" + slot + "物品的数量必须为正整数!");
                             return false;
                         }
 
                         if (type.equalsIgnoreCase("VANILLA")) {
                             Material vanillaMat = Material.getMaterial(material);
                             if (vanillaMat == null) {
-                                Utils.disable("The " + Utils.toOrdinal(transIndex) + " " + slot + "ingredient for recipe " + recipeKey + " for " + machineKey
-                                    + " is not a valid vanilla ID!");
+                                Utils.disable(machineKey + "的配方 " + recipeKey + " 的第" + transIndex
+                                    + "个" + slot + "物品不是有效的原版物品!");
                                 return false;
                             } else {
                                 if (i == 0) {
@@ -128,8 +126,8 @@ public class Machines {
                         } else if (type.equalsIgnoreCase("SLIMEFUN")) {
                             SlimefunItem sfMat = SlimefunItem.getById(material);
                             if (sfMat == null) {
-                                Utils.disable("The " + Utils.toOrdinal(transIndex) + " " + slot + " ingredient for recipe " + recipeKey + " for " + machineKey
-                                    + " is not a valid Slimefun ID!");
+                                Utils.disable(machineKey + "的配方 " + recipeKey + " 的第" + transIndex
+                                    + "个" + slot + "物品不是有效的粘液科技物品!");
                             } else {
                                 if (i == 0) {
                                     if (transIndex == 1) {
@@ -178,8 +176,7 @@ public class Machines {
                                 }
                             }
                         } else if (!(type.equalsIgnoreCase("NONE") && transIndex == 2)) {
-                            Utils.disable("The ingredient type for recipe " + recipeKey + " for " + machineKey
-                                + " can only be VANILLA, SLIMEFUN, or SAVEDITEM for the 1st " + slot + " and VANILLA, SLIMEFUN, SAVEDITEM, or NONE for the 2nd " + slot + "!");
+                            Utils.disable(machineKey + "的配方 " + recipeKey + " 的第一个" + slot + "物品类型只能为 VANILLA, SLIMEFUN, 或 SAVEDITEM, 第二个" + slot + "物品类型只能为 VANILLA, SLIMEFUN, SAVEDITEM 或 NONE!");
                         }
                     }
                 }
@@ -210,7 +207,7 @@ public class Machines {
                 machineKey, machine.getProgressItem(), machine.getEnergyConsumption(), machine.getEnergyBuffer(),
                 customRecipe).register(SlimeCustomizer.getInstance());
 
-            Utils.notify("Machine " + machineKey + " has been registered!");
+            Utils.notify("已注册机器 " + machineKey + "!");
 
         }
 
