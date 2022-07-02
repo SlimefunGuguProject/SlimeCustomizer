@@ -116,7 +116,7 @@ public class SCMachine {
             config.getStringList(key + "." + machineType + "-lore").stream(),
             new ArrayList<>(Arrays.asList("", getMachineTag(),
                 LoreBuilderDynamic.powerBuffer(energyBuffer),
-                LoreBuilderDynamic.powerPerTick(getEnergyExchange()))).stream()
+                LoreBuilderDynamic.powerPerSecond(getEnergyExchange()))).stream()
         ).collect(Collectors.toList()));
 
         // Two types of tempStacks for and without skull textures
