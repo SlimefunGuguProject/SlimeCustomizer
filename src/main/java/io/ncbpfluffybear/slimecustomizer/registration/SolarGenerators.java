@@ -29,9 +29,8 @@ public class SolarGenerators {
     public static boolean register(Config generators) {
         for (String generatorKey : generators.getKeys()) {
             if (generatorKey.equals("EXAMPLE_SOLAR_GENERATOR")) {
-                SlimeCustomizer.getInstance().getLogger().log(Level.WARNING, "Your solar-generators.yml file still contains" +
-                    " the example solar generator! " +
-                    "Did you forget to set up the plugin?");
+                SlimeCustomizer.getInstance().getLogger().log(Level.WARNING, "solar-generators.yml 仍包含示例太阳能发电机! " +
+                    "你是不是忘记配置了?");
             }
 
             int dayEnergy;
@@ -46,7 +45,7 @@ public class SolarGenerators {
             try {
                 dayEnergy = Integer.parseInt(generators.getString(generatorKey + ".stats.energy-production.day"));
             } catch (NumberFormatException e) {
-                Utils.disable("The daytime energy production for " + generatorKey + " must be a positive integer!");
+                Utils.disable(generatorKey + "的日间发电效率必须为正整数!");
                 return false;
             }
 
@@ -54,7 +53,7 @@ public class SolarGenerators {
             try {
                 nightEnergy = Integer.parseInt(generators.getString(generatorKey + ".stats.energy-production.night"));
             } catch (NumberFormatException e) {
-                Utils.disable("The nighttime energy production for " + generatorKey + " must be a positive integer!");
+                Utils.disable(generatorKey + "的夜间发电效率必须为正整数!");
                 return false;
             }
 
@@ -63,11 +62,10 @@ public class SolarGenerators {
             if (item == null) {return false;}
 
             // Crafting recipe type
-            String recipeTypeString = generators.getString(generatorKey + ".crafting-recipe-type").toUpperCase();
+            String recipeTypeString = generators.getString(generatorKey + ".crafting-recipe-type");
             RecipeType recipeType = Utils.getRecipeType(recipeTypeString, generatorKey);
             if (recipeType == null) {
-                Utils.disable("The crafting-recipe-type for " + generatorKey + " is not valid! Refer to the wiki to see" +
-                    " acceptable inputs.");
+                Utils.disable(generatorKey + "的 crafting-recipe-type 无效! 请查阅wiki.");
                 return false;
             }
 
@@ -79,8 +77,8 @@ public class SolarGenerators {
             List<String> itemLore = Utils.colorList(Stream.concat(
                 generators.getStringList(generatorKey + "." + "generator-lore").stream(),
                 new ArrayList<>(Arrays.asList("", "&e太阳能发电机",
-                    LoreBuilderDynamic.powerPerTick(dayEnergy) + " &7(昼)",
-                    LoreBuilderDynamic.powerPerTick(nightEnergy) + " &7(夜)"
+                    LoreBuilderDynamic.powerPerSecond(dayEnergy) + " &7(昼)",
+                    LoreBuilderDynamic.powerPerSecond(nightEnergy) + " &7(夜)"
                 )).stream()
             ).collect(Collectors.toList()));
 
@@ -94,7 +92,7 @@ public class SolarGenerators {
             new CustomSolarGenerator(category, dayEnergy, nightEnergy, tempStack, recipeType, recipe
             ).register(SlimeCustomizer.getInstance());
 
-            Utils.notify("Generator " + generatorKey + " has been registered!");
+            Utils.notify("已注册太阳能发电机 " + generatorKey + "!");
         }
 
         return true;

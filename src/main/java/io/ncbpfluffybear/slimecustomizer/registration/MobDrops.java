@@ -9,6 +9,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.config.Config;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
+import net.guizhanss.guizhanlib.minecraft.helper.entity.EntityTypeHelper;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
@@ -28,36 +29,35 @@ public class MobDrops {
     public static boolean register(Config drops) {
         for (String dropKey : drops.getKeys()) {
             if (dropKey.equals("EXAMPLE_DROP")) {
-                SlimeCustomizer.getInstance().getLogger().log(Level.WARNING, "Your mob-drops.yml file still contains the example mob drop! " +
-                    "Did you forget to set up the plugin?");
+                SlimeCustomizer.getInstance().getLogger().log(Level.WARNING, "mob-drops.yml 文件中仍包含示例配置! " +
+                    "你是不是忘记配置了?");
             }
 
             String itemType = drops.getString(dropKey + ".item-type");
-            String materialString = drops.getString(dropKey + ".item-id").toUpperCase();
-            SlimefunItemStack tempStack;
-            ItemStack item = null;
-            int amount;
-            int chance;
 
             ItemGroup category = Utils.getCategory(drops.getString(dropKey + ".category"), dropKey);
             if (category == null) {return false;}
 
-            try {
-                amount = Integer.parseInt(drops.getString(dropKey + ".item-amount"));
-            } catch (NumberFormatException e) {
-                Utils.disable("The item-amount for " + dropKey + " must be a positive integer!");
+            String materialString = drops.getString(dropKey + ".item-id");
+            SlimefunItemStack tempStack;
+            ItemStack item = null;
+            int amount = drops.getOrSetDefault(dropKey + ".item-amount", 1);
+            int chance = drops.getOrSetDefault(dropKey + ".chance", 100);
+
+            if (itemType == null) {
+                Utils.disable(dropKey + "未设置 item-type!");
                 return false;
             }
-
-            try {
-                chance = Integer.parseInt(drops.getString(dropKey + ".chance"));
-            } catch (NumberFormatException e) {
-                Utils.disable("The chance for " + dropKey + " must be a positive integer!");
+            if (materialString == null) {
+                Utils.disable(dropKey + "未设置 item-id!");
                 return false;
             }
-
+            if (amount < 1) {
+                Utils.disable(dropKey + "的 item-amount 必须为正整数!");
+                return false;
+            }
             if (chance < 0 || chance > 100) {
-                Utils.disable("The chance for " + dropKey + " must be a between 1 and 100 (inclusive)!");
+                Utils.disable(dropKey + "的 chance 必须为 0-100!");
                 return false;
             }
 
@@ -67,7 +67,7 @@ public class MobDrops {
 
                 /* Item material type */
                 if (material == null && !materialString.startsWith("SKULL")) {
-                    Utils.disable("The item-id for " + dropKey + " is invalid!");
+                    Utils.disable(dropKey + "的 item-id 无效!");
                     return false;
                 } else if (material != null) {
                     item = new ItemStack(material);
@@ -92,36 +92,43 @@ public class MobDrops {
 
                 tempStack = new SlimefunItemStack(dropKey, item);
             } else {
-                Utils.disable("The item-id for " + dropKey + " can only be CUSTOM or SAVEDITEM!");
+                Utils.disable(dropKey + "的 item-type 只能为 CUSTOM 或 SAVEDITEM!");
                 return false;
             }
 
             // Get mob type that drops the item
             String mobType = drops.getString(dropKey + ".mob");
-            EntityType mob = EntityType.valueOf(mobType);
+            EntityType mob;
             String egg = drops.getString(dropKey + ".recipe-display-item");
             Material eggMaterial = Material.getMaterial(egg);
 
             if (mobType == null) {
-                Utils.disable("The mob for " + dropKey + " is invalid!");
+                Utils.disable(dropKey + "的 mob 不是有效的生物类型!");
+                return false;
+            }
+
+            try {
+                mob = EntityType.valueOf(mobType);
+            } catch (IllegalArgumentException e) {
+                Utils.disable(dropKey + "的 mob 不是有效的生物类型!");
                 return false;
             }
 
             if (mob == EntityType.UNKNOWN) {
-                Utils.disable("The mob for " + dropKey + " is invalid!");
+                Utils.disable(dropKey + "的 mob 不是有效的生物类型!");
                 return false;
             }
 
             if (eggMaterial == null) {
-                Utils.disable("The recipe-display-item for " + dropKey + " is invalid!");
+                Utils.disable(dropKey + "的 recipe-display-item 不是有效的原版物品ID!");
                 return false;
             }
 
             /* Crafting recipe */
             ItemStack[] recipe = new ItemStack[] {
                     null, null, null,
-                    null, new CustomItemStack(eggMaterial, "&b" + Utils.capitalize(mobType), "&7击杀"
-                    + Utils.capitalize(mobType))
+                    null, new CustomItemStack(eggMaterial, "&b" + Utils.capitalize(mobType), "&7击杀 "
+                    + EntityTypeHelper.getName(mob))
             };
 
             if (itemType.equalsIgnoreCase("CUSTOM")) {
@@ -132,7 +139,7 @@ public class MobDrops {
                 ).register(SlimeCustomizer.getInstance());
             }
 
-            Utils.notify("Mob drop " + dropKey + " has been registered!");
+            Utils.notify("已注册生物掉落物品 " + dropKey + "!");
         }
 
         return true;

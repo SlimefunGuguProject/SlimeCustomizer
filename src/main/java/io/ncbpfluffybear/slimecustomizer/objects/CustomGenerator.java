@@ -77,7 +77,7 @@ public class CustomGenerator extends SCAGenerator {
             ItemStack input = fuel.getInput();
             ItemStack customInput = new CustomItemStack(input, input.getItemMeta().getDisplayName(),
                     "&8\u21E8 &7持续时间: " + Utils.ticksToSeconds(fuel.getTicks()),
-                    LoreBuilderDynamic.powerPerTick(getEnergyProduction()),
+                    LoreBuilderDynamic.powerPerSecond(getEnergyProduction()),
                     "&8\u21E8 &e\u26A1 &7总发电量: " + fuel.getTicks() * getEnergyProduction() + " J"
             );
             displayRecipes.add(customInput);

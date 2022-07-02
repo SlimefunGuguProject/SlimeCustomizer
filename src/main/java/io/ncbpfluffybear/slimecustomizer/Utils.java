@@ -41,7 +41,7 @@ public class Utils {
     ));
 
     public static void send(CommandSender s, String msg) {
-        s.sendMessage(ChatColor.translateAlternateColorCodes('&', "&a&l[&aSlimeCustomizer&a&l]&7 " + msg));
+        s.sendMessage(ChatColor.translateAlternateColorCodes('&', "&a&l[&a自定义粘液附属&a&l]&7 " + msg));
     }
 
     public static boolean checkPermission(Player p, String permission) {
@@ -58,11 +58,11 @@ public class Utils {
     }
 
     public static void notify(String reason) {
-        Bukkit.getLogger().log(Level.INFO, "[SlimeCustomizer] " + ChatColor.GREEN + reason);
+        Bukkit.getLogger().log(Level.INFO, "[自定义粘液附属] " + ChatColor.GREEN + reason);
     }
 
     public static void disable(String reason) {
-        Bukkit.getLogger().log(Level.SEVERE, "[SlimeCustomizer] " + reason);
+        Bukkit.getLogger().log(Level.SEVERE, "[自定义粘液附属] " + reason);
         Bukkit.getPluginManager().disablePlugin(SlimeCustomizer.getInstance());
     }
 
@@ -91,32 +91,36 @@ public class Utils {
             String path = key + ".crafting-recipe";
             int configIndex = i + 1;
             // Shift recipe index up 1 so it's easier for the user to read config
-            String type = file.getString(path + "." + configIndex + ".type").toUpperCase();
-            String material = file.getString(path + "." + configIndex + ".id").toUpperCase();
-            int amount;
+            String type = file.getString(path + "." + configIndex + ".type");
 
-            try {
-                amount = Integer.parseInt(file.getString(path + "." + configIndex + ".amount"));
-            } catch (NumberFormatException e) {
-                Utils.disable("Crafting recipe item " + configIndex + " for " + key + " must be a positive " +
-                    "integer!");
+            if (type.equalsIgnoreCase("NONE")) {
+                recipe[i] = null;
+                continue;
+            }
+
+            String material = file.getString(path + "." + configIndex + ".id");
+            int amount = file.getOrSetDefault(path + "." + configIndex + ".amount", 1);
+
+            if (material == null) {
+                Utils.disable(key + "的合成配方物品" + configIndex + "的 id 不能为空!");
+                return null;
+            }
+            if (amount < 1) {
+                Utils.disable(key + "的合成配方物品" + configIndex + "的 amount 必须为正整数!");
                 return null;
             }
 
             // Only certain multiblock machines can use stack sizes larger than 1
             if (STACK_LIMITED_MACHINES.contains(recipeType) && amount > 1) {
-                disable(recipeType.getKey().getKey().toUpperCase() + " can not use items with a greater stack size than 1!" +
-                    " Please change the crafting-recipe-type or crafting-recipe.#.amount for " + key + ".");
+                disable("配方类型 " + recipeType.getKey().getKey().toUpperCase() + " 不能使用数量大于1的物品作为配方物品!" +
+                    " 请更改" + key + " 的 crafting-recipe-type 或 crafting-recipe." + configIndex + ".amount。");
                 return null;
             }
 
-            if (type.equalsIgnoreCase("NONE")) {
-                recipe[i] = null;
-            } else if (type.equalsIgnoreCase("VANILLA")) {
+            if (type.equalsIgnoreCase("VANILLA")) {
                 Material vanillaMat = Material.getMaterial(material);
                 if (vanillaMat == null) {
-                    Utils.disable("Crafting ingredient " + configIndex + " for " + key + " is not a valid " +
-                        "vanilla ID!");
+                    Utils.disable(key + "的合成配方物品" + configIndex + "的 id 不是有效的原版物品ID!");
                     return null;
                 } else {
                     recipe[i] = new ItemStack(vanillaMat, amount);
@@ -265,10 +269,9 @@ public class Utils {
         }
 
         config.setValue(key + ".placeable", false);
-        Bukkit.getLogger().log(Level.WARNING, "Your " + key + " was reformatted to have a placeable option! " +
-                "Read " + Links.ADDING_YOUR_ITEM + " to learn what this new option does!");
-        Bukkit.getLogger().log(Level.SEVERE, "This option is false by default, so if you have a block you need " +
-                "to be placeable, change this immediately!");
+        Bukkit.getLogger().log(Level.WARNING, "物品 " + key + " 添加了 placeable 配置项, 该选项默认为 false! " +
+                "前往 " + Links.ADDING_YOUR_ITEM + " 了解此配置项!");
+        Bukkit.getLogger().log(Level.SEVERE, "如果该物品为可放置的，你需要立即修改该选项!");
         config.save();
     }
 
@@ -276,7 +279,7 @@ public class Utils {
         File serializedItemFile = new File(SlimeCustomizer.getInstance().getDataFolder(), "saveditems/" + id + ".yml");
         if (!serializedItemFile.exists()) {
             if (disableIfNull) {
-                disable(id + " could not be found in your saveditems folder! Make sure the file is a yml file!");
+                disable("无法在保存物品目录中找到 " + id + "! 需要确保这是yml文件!");
             }
             return null;
         } else {
@@ -288,15 +291,12 @@ public class Utils {
 
     public static RecipeType getRecipeType(String str, String key) {
         if (str == null) {
-            disable("The crafting-recipe-type for " + key + " has to be a multiblock machine!" );
             return null;
         }
-        switch (str) {
-            default:
-                return null;
+        switch (str.toUpperCase()) {
             case "ENCHANTED_CRAFTING_TABLE":
-                Bukkit.getLogger().log(Level.WARNING, "Hey buddy, it's the ENHANCED crafting table, not ENCHANTED. " +
-                    "Don't worry, I know what you mean. But you should probably fix that.");
+                Bukkit.getLogger().log(Level.WARNING, "嘿，伙计！应该是增强型(ENHANCED)工作台，而不是附魔(ENCHANTED)工作台。. " +
+                    "不用担心，我懂你的意思，但你也许应该修复这个小错误。");
                 return RecipeType.ENHANCED_CRAFTING_TABLE;
             case "ENHANCED_CRAFTING_TABLE":
                 return RecipeType.ENHANCED_CRAFTING_TABLE;
@@ -316,13 +316,15 @@ public class Utils {
                 return RecipeType.GRIND_STONE;
             case "NONE":
                 return RecipeType.NULL;
+            default:
+                return null;
         }
     }
 
     public static ItemGroup getCategory(String str, String key) {
         ItemGroup category = SlimeCustomizer.allCategories.get(str);
         if (category == null) {
-            disable(str + " is not a valid category for " + key + "!");
+            disable(key + "的 category " + key + " 不是有效的分类!");
         }
         return category;
     }

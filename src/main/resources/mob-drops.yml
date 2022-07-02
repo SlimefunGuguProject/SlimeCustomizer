@@ -1,4 +1,4 @@
-#READ THE WIKI BEFORE CREATING AN ITEM! https://github.com/NCBPFluffyBear/SlimeCustomizer/blob/master/README.md
+# 阅读wiki获取更多信息: https://slimefun-addons-wiki.guizhanss.cn/slime-customizer/Mob-Drops
 EXAMPLE_DROP:
   category: slime_customizer
   item-type: CUSTOM
