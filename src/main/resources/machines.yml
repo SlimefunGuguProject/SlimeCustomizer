@@ -1,4 +1,4 @@
-#READ THE WIKI BEFORE CREATING A MACHINE! https://github.com/NCBPFluffyBear/SlimeCustomizer/blob/master/README.md
+# 阅读wiki获取更多信息: https://slimefun-addons-wiki.guizhanss.cn/slime-customizer/Machines
 EXAMPLE_MACHINE:
   category: slime_customizer
   machine-name: "&bExample Machine"
