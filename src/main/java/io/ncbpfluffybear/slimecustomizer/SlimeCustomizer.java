@@ -3,7 +3,6 @@ package io.ncbpfluffybear.slimecustomizer;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.collections.Pair;
-import io.github.thebusybiscuit.slimefun4.libraries.dough.updater.GitHubBuildsUpdater;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
 import io.ncbpfluffybear.slimecustomizer.objects.SCMenu;
 import io.ncbpfluffybear.slimecustomizer.objects.WindowsExplorerStringComparator;
@@ -16,7 +15,6 @@ import io.ncbpfluffybear.slimecustomizer.registration.Researches;
 import io.ncbpfluffybear.slimecustomizer.registration.SolarGenerators;
 import lombok.SneakyThrows;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.config.Config;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import net.guizhanss.guizhanlib.updater.GuizhanBuildsUpdater;
@@ -52,7 +50,8 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
     public static File itemsFolder;
 
     public static final HashMap<ItemStack[], Pair<RecipeType, String>> existingRecipes = new HashMap<>();
-    public static final HashMap<String, ItemGroup> allCategories = new HashMap<>();
+
+    private Registry registry;
 
     @Override
     public void onEnable() {
@@ -110,6 +109,8 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
                 getInstance().getLogger().log(Level.SEVERE, "无法创建文件夹: saveditems", e);
             }
         }
+
+        registry = new Registry(this);
 
         Config categories = new Config(this, "categories.yml");
         Config mobDrops = new Config(this, "mob-drops.yml");
@@ -382,4 +383,7 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
         return instance;
     }
 
+    public static Registry getRegistry() {
+        return getInstance().registry;
+    }
 }

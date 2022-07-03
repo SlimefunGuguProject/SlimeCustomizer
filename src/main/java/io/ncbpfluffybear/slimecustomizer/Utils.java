@@ -17,6 +17,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -128,8 +130,7 @@ public class Utils {
             } else if (type.equalsIgnoreCase("SLIMEFUN")) {
                 SlimefunItem sfMat = SlimefunItem.getById(material);
                 if (sfMat == null) {
-                    Utils.disable("Crafting ingredient " + configIndex + " for " + key
-                        + " is not a valid Slimefun ID!");
+                    Utils.disable(key + "的合成配方物品" + configIndex + "的 id 不是有效的粘液科技物品ID!");
                     return null;
                 } else {
                     recipe[i] = new CustomItemStack(sfMat.getItem().clone(), amount);
@@ -137,8 +138,8 @@ public class Utils {
             } else if (type.equalsIgnoreCase("SAVEDITEM")) {
                 recipe[i] = retrieveSavedItem(material, amount, true);
             } else {
-                Utils.disable("Crafting ingredient " + configIndex + " for " + key
-                    + " can only have a type of VANILLA, SLIMEFUN, SAVEDITEM, or NONE!");
+                Utils.disable(key + "的合成配方物品" + configIndex
+                    + " 的类型只能为: VANILLA, SLIMEFUN, SAVEDITEM, 或 NONE!");
                 return null;
             }
         }
@@ -253,9 +254,8 @@ public class Utils {
                     config.setValue(transportPath + ".2.id", "N/A");
                     config.setValue(transportPath + ".2.amount", 1);
 
-                    Bukkit.getLogger().log(Level.WARNING, "Your " + key + " was reformatted to use the new " +
-                            "input/output system! " +
-                        "Read " + Links.ADDING_YOUR_MACHINE + " to learn what this new format does!");
+                    Bukkit.getLogger().log(Level.WARNING, "物品 " + key + " 的配置已更新至新版输入/输出! " +
+                        "前往 " + Links.ADDING_YOUR_MACHINE + " 了解更多!");
                 }
             }
         }
@@ -321,10 +321,11 @@ public class Utils {
         }
     }
 
-    public static ItemGroup getCategory(String str, String key) {
-        ItemGroup category = SlimeCustomizer.allCategories.get(str);
+    @Nullable
+    public static ItemGroup getCategory(@Nonnull String str, @Nonnull String key) {
+        ItemGroup category = SlimeCustomizer.getRegistry().getItemGroupForItem(str);
         if (category == null) {
-            disable(key + "的 category " + key + " 不是有效的分类!");
+            disable(key + "的分类 " + str + " 不是有效的分类(只能是普通分类或子分类)!");
         }
         return category;
     }

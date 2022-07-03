@@ -1,5 +1,7 @@
 package io.ncbpfluffybear.slimecustomizer.registration;
 
+import io.github.thebusybiscuit.slimefun4.api.items.groups.NestedItemGroup;
+import io.github.thebusybiscuit.slimefun4.api.items.groups.SubItemGroup;
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
 import io.ncbpfluffybear.slimecustomizer.SlimeCustomizer;
 import io.ncbpfluffybear.slimecustomizer.Utils;
@@ -9,8 +11,6 @@ import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
-
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * {@link Categories} registers the categories
@@ -29,6 +29,7 @@ public class Categories {
         for (String categoryKey : categories.getKeys()) {
             String name = categories.getString(categoryKey + ".category-name");
             String materialString = categories.getString(categoryKey + ".category-item");
+            String parent = categories.getString(categoryKey + ".parent");
             Material material = Material.getMaterial(materialString);
             ItemStack item = null;
 
@@ -42,23 +43,36 @@ public class Categories {
                 item = SlimefunUtils.getCustomHead(materialString.replace("SKULL", ""));
             }
 
-            ItemGroup tempCategory = new ItemGroup(new NamespacedKey(SlimeCustomizer.getInstance(), categoryKey),
-                new CustomItemStack(item, name));
-
-            AtomicBoolean disable = new AtomicBoolean(false);
-            SlimeCustomizer.allCategories.forEach((key, storedCategory) -> {
-                if (key.equalsIgnoreCase(categoryKey)) {
-                    Utils.disable("分类 " + categoryKey + " 已被注册！你似乎设置了重复的分类ID？");
-                    disable.set(true);
-                }
-            });
-            if (disable.get()) {
+            if (SlimeCustomizer.getRegistry().isAnyItemGroup(categoryKey)) {
+                Utils.disable("分类 " + categoryKey + " 已被注册! 你是不是用了重复的ID?");
                 return false;
             }
 
-            SlimeCustomizer.allCategories.put(categoryKey, tempCategory);
-            Utils.notify("已注册分类 " + categoryKey + "!");
-
+            if (parent == null) {
+                // ItemGroup
+                ItemGroup tempCategory = new ItemGroup(new NamespacedKey(SlimeCustomizer.getInstance(), categoryKey),
+                    new CustomItemStack(item, name));
+                tempCategory.register(SlimeCustomizer.getInstance());
+                SlimeCustomizer.getRegistry().addItemGroup(categoryKey, tempCategory);
+                Utils.notify("已注册普通分类 " + categoryKey + "!");
+            } else if (parent.equalsIgnoreCase("this")) {
+                // NestedItemGroup - parent item group
+                NestedItemGroup tempCategory = new NestedItemGroup(new NamespacedKey(SlimeCustomizer.getInstance(), categoryKey), new CustomItemStack(item, name));
+                tempCategory.register(SlimeCustomizer.getInstance());
+                SlimeCustomizer.getRegistry().addNestedItemGroup(categoryKey, tempCategory);
+                Utils.notify("已注册父分类 " + categoryKey + "!");
+            } else {
+                // SubItemGroup - child item group
+                if (!SlimeCustomizer.getRegistry().hasNestedItemGroup(parent)) {
+                    Utils.disable("分类 " + categoryKey + " 的父分类 " + parent + "不存在!");
+                    return false;
+                }
+                NestedItemGroup parentCategory = SlimeCustomizer.getRegistry().getNestedItemGroup(parent);
+                SubItemGroup tempCategory = new SubItemGroup(new NamespacedKey(SlimeCustomizer.getInstance(), categoryKey), parentCategory, new CustomItemStack(item, name));
+                tempCategory.register(SlimeCustomizer.getInstance());
+                SlimeCustomizer.getRegistry().addSubItemGroup(categoryKey, tempCategory);
+                Utils.notify("已注册分类 " + parent + " 的子分类 " + categoryKey + "!");
+            }
         }
 
         return true;
