@@ -323,6 +323,10 @@ public class Utils {
 
     @Nullable
     public static ItemGroup getCategory(@Nonnull String str, @Nonnull String key) {
+        if (str == null) {
+            disable(key + "的分类 " + str + " 不能为空!");
+            return null;
+        }
         ItemGroup category = SlimeCustomizer.getRegistry().getItemGroupForItem(str);
         if (category == null) {
             disable(key + "的分类 " + str + " 不是有效的分类(只能是普通分类或子分类)!");

@@ -9,6 +9,7 @@ import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
 import io.ncbpfluffybear.slimecustomizer.objects.SCMenu;
 import io.ncbpfluffybear.slimecustomizer.objects.WindowsExplorerStringComparator;
+import io.ncbpfluffybear.slimecustomizer.registration.Capacitors;
 import io.ncbpfluffybear.slimecustomizer.registration.Categories;
 import io.ncbpfluffybear.slimecustomizer.registration.Generators;
 import io.ncbpfluffybear.slimecustomizer.registration.Items;
@@ -78,6 +79,9 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
         final File itemsFile = new File(getInstance().getDataFolder(), "items.yml");
         copyFile(itemsFile, "items");
 
+        final File capacitorsFile = new File(getInstance().getDataFolder(), "capacitors.yml");
+        copyFile(capacitorsFile, "capacitors");
+
         final File machinesFile = new File(getInstance().getDataFolder(), "machines.yml");
         copyFile(machinesFile, "machines");
 
@@ -115,6 +119,7 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
         Config categories = new Config(this, "categories.yml");
         Config mobDrops = new Config(this, "mob-drops.yml");
         Config items = new Config(this, "items.yml");
+        Config capacitors = new Config(this, "capacitors.yml");
         Config machines = new Config(this, "machines.yml");
         Config generators = new Config(this, "generators.yml");
         Config solarGenerators = new Config(this, "solar-generators.yml");
@@ -128,6 +133,7 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
         if (!Categories.register(categories)) {return;}
         if (!MobDrops.register(mobDrops)) {return;}
         if (!Items.register(items)) {return;}
+        if (!Capacitors.register(capacitors)) {return;}
         if (!Machines.register(machines)) {return;}
         if (!Generators.register(generators)) {return;}
         if (!SolarGenerators.register(solarGenerators)) {return;}

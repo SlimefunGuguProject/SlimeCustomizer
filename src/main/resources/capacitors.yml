@@ -1,0 +1,47 @@
+# 阅读wiki获取更多信息: https://slimefun-addons-wiki.guizhanss.cn/slime-customizer/Capacitors
+EXAMPLE_CAPACITOR:
+  category: slime_customizer
+  capacitor-name: "&b示例电容"
+  capacitor-lore:
+  - "&7这是个示例电容!"
+  block-type: DEFAULT
+  capacity: 114514
+  item-amount: 1
+  crafting-recipe-type: ENHANCED_CRAFTING_TABLE
+  crafting-recipe:
+    1:
+      type: VANILLA
+      id: GOLD_BLOCK
+      amount: 1
+    2:
+      type: NONE
+      id: N/A
+      amount: 1
+    3:
+      type: VANILLA
+      id: GOLD_BLOCK
+      amount: 1
+    4:
+      type: VANILLA
+      id: IRON_BLOCK
+      amount: 1
+    5:
+      type: SLIMEFUN
+      id: SMALL_CAPACITOR
+      amount: 1
+    6:
+      type: VANILLA
+      id: IRON_BLOCK
+      amount: 1
+    7:
+      type: VANILLA
+      id: IRON_BLOCK
+      amount: 1
+    8:
+      type: VANILLA
+      id: IRON_BLOCK
+      amount: 1
+    9:
+      type: VANILLA
+      id: IRON_BLOCK
+      amount: 1
