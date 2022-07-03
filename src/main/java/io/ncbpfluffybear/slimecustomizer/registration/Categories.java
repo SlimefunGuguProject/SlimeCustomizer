@@ -66,7 +66,6 @@ public class Categories {
             } else if (parent.equalsIgnoreCase("this")) {
                 // NestedItemGroup - parent item group
                 NestedItemGroup tempCategory = new NestedItemGroup(new NamespacedKey(SlimeCustomizer.getInstance(), categoryKey), new CustomItemStack(item, name));
-                tempCategory.register(SlimeCustomizer.getInstance());
                 SlimeCustomizer.getRegistry().addNestedItemGroup(categoryKey, tempCategory);
                 Utils.notify("已注册父分类 " + categoryKey + "!");
             } else {
