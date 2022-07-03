@@ -12,6 +12,9 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Locale;
+import java.util.regex.Pattern;
+
 /**
  * {@link Categories} registers the categories
  * in the categories config file.
@@ -20,6 +23,8 @@ import org.bukkit.inventory.ItemStack;
  */
 public class Categories {
 
+    private static final Pattern VALID_KEY = Pattern.compile("[a-z0-9/._-]+");
+
     public static boolean register(Config categories) {
         if (categories.getKeys().isEmpty()) {
             Utils.disable("没有任何分类！请在 categories.yml 中至少添加一个分类。");
@@ -27,6 +32,10 @@ public class Categories {
         }
 
         for (String categoryKey : categories.getKeys()) {
+            if (!VALID_KEY.matcher(categoryKey).matches()) {
+                Utils.disable("分类 " + categoryKey + " 的ID无效，只能使用[a-z0-9._-]。");
+                return false;
+            }
             String name = categories.getString(categoryKey + ".category-name");
             String materialString = categories.getString(categoryKey + ".category-item");
             String parent = categories.getString(categoryKey + ".parent");
