@@ -9,8 +9,11 @@ import org.bukkit.NamespacedKey;
 
 import java.util.List;
 import java.util.logging.Level;
+import java.util.regex.Pattern;
 
 public class Researches {
+    private static final Pattern VALID_KEY = Pattern.compile("[a-z0-9/._-]+");
+
     public static boolean register(Config researches) {
         if (researches.getKeys().isEmpty()) {
             return true;
@@ -20,6 +23,11 @@ public class Researches {
             if (researchKey.equals("example_research")) {
                 SlimeCustomizer.getInstance().getLogger().log(Level.WARNING, "researches.yml 中仍包含示例研究! " +
                     "你是不是忘记配置了?");
+            }
+
+            if (!VALID_KEY.matcher(researchKey).matches()) {
+                Utils.disable("研究" + researchKey + " 的ID无效，只能使用[a-z0-9._-]。");
+                return false;
             }
 
             int researchId = researches.getInt(researchKey + ".id");

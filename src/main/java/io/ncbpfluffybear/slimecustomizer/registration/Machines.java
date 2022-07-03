@@ -3,11 +3,11 @@ package io.ncbpfluffybear.slimecustomizer.registration;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.collections.Pair;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.config.Config;
 import io.ncbpfluffybear.slimecustomizer.SlimeCustomizer;
 import io.ncbpfluffybear.slimecustomizer.Utils;
 import io.ncbpfluffybear.slimecustomizer.objects.CustomMachine;
 import io.ncbpfluffybear.slimecustomizer.objects.SCMachine;
-import io.github.thebusybiscuit.slimefun4.libraries.dough.config.Config;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 

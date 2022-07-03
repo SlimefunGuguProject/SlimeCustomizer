@@ -2,3 +2,11 @@
 slime_customizer:
   category-name: "&cSlimeCustomizer"
   category-item: REDSTONE_LAMP
+nested_category:
+  parent: "this"
+  category-name: "&c父分类"
+  category-item: NETHER_STAR
+sub_category:
+  parent: "nested_category"
+  category-name: "&c子分类"
+  category-item: STONE
