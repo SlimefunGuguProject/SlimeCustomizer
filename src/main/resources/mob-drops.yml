@@ -2,10 +2,10 @@
 EXAMPLE_DROP:
   category: slime_customizer
   item-type: CUSTOM
-  item-name: "&bExample Drop"
+  item-name: "&b示例生物掉落物"
   item-lore:
-  - "&7This is an example mob-drop!"
-  - "&cExample drops are not obtainable"
+  - "&7这是一个示例生物掉落物!"
+  - "&c你无法获取该示例物品"
   item-id: STICK
   item-amount: 1
   mob: GHAST

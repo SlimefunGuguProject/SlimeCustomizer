@@ -2,10 +2,9 @@
 EXAMPLE_ITEM:
   category: slime_customizer
   item-type: CUSTOM
-  item-name: "&bExample Item"
+  item-name: "&b示例物品"
   item-lore:
-  - "&7This is an example item!"
-  - "&cSlimeCustomizer now supports multiline lore!"
+  - "&7这是一个示例物品!"
   item-id: STICK
   item-amount: 1
   placeable: false

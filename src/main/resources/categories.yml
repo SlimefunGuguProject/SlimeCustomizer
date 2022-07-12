@@ -1,6 +1,6 @@
 # 阅读wiki获取更多信息: https://slimefun-addons-wiki.guizhanss.cn/slime-customizer/Categories
 slime_customizer:
-  category-name: "&cSlimeCustomizer"
+  category-name: "&c默认普通分类"
   category-item: REDSTONE_LAMP
 nested_category:
   parent: "this"

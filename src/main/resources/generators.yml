@@ -1,9 +1,9 @@
 # 阅读wiki获取更多信息: https://slimefun-addons-wiki.guizhanss.cn/slime-customizer/Generators
 EXAMPLE_GENERATOR:
   category: slime_customizer
-  generator-name: "&bExample Generator"
+  generator-name: "&b示例发电机"
   generator-lore:
-  - "&7This is an example generator!"
+  - "&7这是一个示例发电机!"
   block-type: SKULLe707c7f6c3a056a377d4120028405fdd09acfcd5ae804bfde0f653be866afe39
   progress-bar-item: FLINT_AND_STEEL
   stats:
