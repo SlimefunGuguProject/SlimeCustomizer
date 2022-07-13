@@ -162,10 +162,10 @@ public class GeoResources {
 
             if (itemType.equalsIgnoreCase("CUSTOM")) {
                 new SCGeoResource(category, tempStack, maxDeviation, biomeMap, environmentMap
-                ).register(SlimeCustomizer.getInstance());
+                ).registerGeo(SlimeCustomizer.getInstance());
             } else {
                 new SCGeoResource(category, tempStack, item, maxDeviation, biomeMap, environmentMap
-                ).register(SlimeCustomizer.getInstance());
+                ).registerGeo(SlimeCustomizer.getInstance());
             }
 
             Utils.notify("已注册GEO资源 " + geoKey + "!");
