@@ -1,0 +1,14 @@
+# 阅读wiki获取更多信息: https://slimefun-addons-wiki.guizhanss.cn/slime-customizer/Geo-Resources
+EXAMPLE_GEO:
+  category: slime_customizer
+  item-type: CUSTOM
+  item-name: "&b示例自然资源"
+  item-lore:
+    - "&7这是一个示例自然资源!"
+  item-id: STICK
+  max-deviation: 0
+  biome:
+    BEACH: 9
+  environment:
+    NORMAL: 3
+    NETHER: 6

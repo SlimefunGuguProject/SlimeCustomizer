@@ -12,6 +12,7 @@ import io.ncbpfluffybear.slimecustomizer.objects.WindowsExplorerStringComparator
 import io.ncbpfluffybear.slimecustomizer.registration.Capacitors;
 import io.ncbpfluffybear.slimecustomizer.registration.Categories;
 import io.ncbpfluffybear.slimecustomizer.registration.Generators;
+import io.ncbpfluffybear.slimecustomizer.registration.GeoResources;
 import io.ncbpfluffybear.slimecustomizer.registration.Items;
 import io.ncbpfluffybear.slimecustomizer.registration.Machines;
 import io.ncbpfluffybear.slimecustomizer.registration.MobDrops;
@@ -75,6 +76,9 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
 
         final File mobDropsFile = new File(getInstance().getDataFolder(), "mob-drops.yml");
         copyFile(mobDropsFile, "mob-drops");
+
+        final File geoFile = new File(getInstance().getDataFolder(), "geo-resources.yml");
+        copyFile(geoFile, "geo-resources");
         
         final File itemsFile = new File(getInstance().getDataFolder(), "items.yml");
         copyFile(itemsFile, "items");
@@ -118,6 +122,7 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
 
         Config categories = new Config(this, "categories.yml");
         Config mobDrops = new Config(this, "mob-drops.yml");
+        Config geoResources = new Config(this, "geo-resources.yml");
         Config items = new Config(this, "items.yml");
         Config capacitors = new Config(this, "capacitors.yml");
         Config machines = new Config(this, "machines.yml");
@@ -132,6 +137,7 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
 
         if (!Categories.register(categories)) {return;}
         if (!MobDrops.register(mobDrops)) {return;}
+        if (!GeoResources.register(geoResources)) {return;}
         if (!Items.register(items)) {return;}
         if (!Capacitors.register(capacitors)) {return;}
         if (!Machines.register(machines)) {return;}
