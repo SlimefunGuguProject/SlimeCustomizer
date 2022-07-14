@@ -1,5 +1,6 @@
 package io.ncbpfluffybear.slimecustomizer.objects;
 
+import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.geo.GEOResource;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
@@ -48,7 +49,7 @@ abstract class CustomGeoResource extends SlimefunItem implements GEOResource {
     @Nonnull
     @Override
     public ItemStack getItem() {
-        return item;
+        return item.clone();
     }
 
     @Override
@@ -60,5 +61,10 @@ abstract class CustomGeoResource extends SlimefunItem implements GEOResource {
     @Override
     public NamespacedKey getKey() {
         return key;
+    }
+
+    public void registerGeo(@Nonnull SlimefunAddon addon) {
+        register();
+        register(addon);
     }
 }
