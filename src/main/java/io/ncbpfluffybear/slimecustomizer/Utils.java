@@ -316,6 +316,20 @@ public class Utils {
                 return RecipeType.GRIND_STONE;
             case "NONE":
                 return RecipeType.NULL;
+            case "ANCIENT_ALTAR":
+                return RecipeType.ANCIENT_ALTAR;
+            case "HEATED_PRESSURE_CHAMBER":
+                return RecipeType.HEATED_PRESSURE_CHAMBER;
+            case "FOOD_FABRICATOR":
+                return RecipeType.FOOD_FABRICATOR;
+            case "FOOD_COMPOSTER":
+                return RecipeType.FOOD_COMPOSTER;
+            case "FREEZER":
+                return RecipeType.FREEZER;
+            case "REFINERY":
+                return RecipeType.REFINERY;
+            case "NUCLEAR_REACTOR":
+                return RecipeType.NUCLEAR_REACTOR;
             default:
                 return null;
         }
