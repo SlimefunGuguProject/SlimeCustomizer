@@ -39,7 +39,8 @@ public class Utils {
         RecipeType.ENHANCED_CRAFTING_TABLE,
         RecipeType.ARMOR_FORGE,
         RecipeType.PRESSURE_CHAMBER,
-        RecipeType.MAGIC_WORKBENCH
+        RecipeType.MAGIC_WORKBENCH,
+        RecipeType.ANCIENT_ALTAR
     ));
 
     public static void send(CommandSender s, String msg) {
@@ -314,22 +315,10 @@ public class Utils {
                 return RecipeType.ORE_CRUSHER;
             case "GRIND_STONE":
                 return RecipeType.GRIND_STONE;
-            case "NONE":
-                return RecipeType.NULL;
             case "ANCIENT_ALTAR":
                 return RecipeType.ANCIENT_ALTAR;
-            case "HEATED_PRESSURE_CHAMBER":
-                return RecipeType.HEATED_PRESSURE_CHAMBER;
-            case "FOOD_FABRICATOR":
-                return RecipeType.FOOD_FABRICATOR;
-            case "FOOD_COMPOSTER":
-                return RecipeType.FOOD_COMPOSTER;
-            case "FREEZER":
-                return RecipeType.FREEZER;
-            case "REFINERY":
-                return RecipeType.REFINERY;
-            case "NUCLEAR_REACTOR":
-                return RecipeType.NUCLEAR_REACTOR;
+            case "NONE":
+                return RecipeType.NULL;
             default:
                 return null;
         }
