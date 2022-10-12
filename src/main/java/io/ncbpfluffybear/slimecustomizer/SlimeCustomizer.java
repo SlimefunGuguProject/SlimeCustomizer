@@ -2,7 +2,6 @@ package io.ncbpfluffybear.slimecustomizer;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
-import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.collections.Pair;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.config.Config;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
@@ -19,7 +18,7 @@ import io.ncbpfluffybear.slimecustomizer.registration.MobDrops;
 import io.ncbpfluffybear.slimecustomizer.registration.Researches;
 import io.ncbpfluffybear.slimecustomizer.registration.SolarGenerators;
 import lombok.SneakyThrows;
-import net.guizhanss.guizhanlib.updater.GuizhanBuildsUpdater;
+import net.guizhanss.guizhanlibplugin.updater.GuizhanBuildsUpdaterWrapper;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -113,8 +112,6 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
                 getInstance().getLogger().log(Level.SEVERE, "无法创建文件夹: saveditems", e);
             }
         }
-
-        registry = new Registry(this);
 
         Config categories = new Config(this, "categories.yml");
         Config mobDrops = new Config(this, "mob-drops.yml");

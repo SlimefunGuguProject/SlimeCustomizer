@@ -19,7 +19,6 @@ import java.time.DateTimeException;
 import java.time.Month;
 import java.util.List;
 import java.util.Locale;
-import java.util.regex.Pattern;
 
 /**
  * {@link Categories} registers the categories
@@ -29,8 +28,6 @@ import java.util.regex.Pattern;
  * @author ybw0014
  */
 public class Categories {
-
-    private static final Pattern VALID_KEY = Pattern.compile("[a-z0-9/._-]+");
 
     public static boolean register(Config categories) {
         if (categories.getKeys().isEmpty()) {
