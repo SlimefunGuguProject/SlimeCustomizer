@@ -51,10 +51,6 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
     public static SlimeCustomizer instance;
     public static File itemsFolder;
 
-    public static final HashMap<ItemStack[], Pair<RecipeType, String>> existingRecipes = new HashMap<>();
-
-    private Registry registry;
-
     @Override
     public void onEnable() {
 
@@ -65,7 +61,7 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
         Config cfg = new Config(this);
 
         if (cfg.getBoolean("options.auto-update") && getDescription().getVersion().startsWith("Build")) {
-            new GuizhanBuildsUpdater(this, getFile(), "SlimefunGuguProject", "SlimeCustomizer", "master", false, "zh-CN").start();
+            GuizhanBuildsUpdaterWrapper.start(this, getFile(), "SlimefunGuguProject", "SlimeCustomizer", "master", false);
         }
 
         final Metrics metrics = new Metrics(this, 9841);
@@ -79,7 +75,7 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
 
         final File geoFile = new File(getInstance().getDataFolder(), "geo-resources.yml");
         copyFile(geoFile, "geo-resources");
-        
+
         final File itemsFile = new File(getInstance().getDataFolder(), "items.yml");
         copyFile(itemsFile, "items");
 
@@ -395,7 +391,4 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
         return instance;
     }
 
-    public static Registry getRegistry() {
-        return getInstance().registry;
-    }
 }

@@ -2,6 +2,7 @@ package io.ncbpfluffybear.slimecustomizer;
 
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
+import io.github.thebusybiscuit.slimefun4.api.items.groups.NestedItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.collections.Pair;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.config.Config;
@@ -147,7 +148,7 @@ public class Utils {
 
         AtomicBoolean invalid = new AtomicBoolean(false);
 
-        SlimeCustomizer.existingRecipes.forEach((itemStacks, recipeTypePair) -> {
+        Registry.existingRecipes.forEach((itemStacks, recipeTypePair) -> {
             if (Arrays.equals(itemStacks, recipe) && recipeType == recipeTypePair.getFirstValue()) {
                 Utils.disable("The crafting recipe for " + key + " is already being used for "
                     + recipeTypePair.getSecondValue());
@@ -160,7 +161,7 @@ public class Utils {
         }
 
         if (!(recipeType == RecipeType.NULL)) {
-            SlimeCustomizer.existingRecipes.put(recipe, new Pair<>(recipeType, key));
+            Registry.existingRecipes.put(recipe, new Pair<>(recipeType, key));
         }
         return recipe;
     }
@@ -325,14 +326,10 @@ public class Utils {
     }
 
     @Nullable
-    public static ItemGroup getCategory(@Nonnull String str, @Nonnull String key) {
-        if (str == null) {
-            disable(key + "的分类 " + str + " 不能为空!");
-            return null;
-        }
-        ItemGroup category = SlimeCustomizer.getRegistry().getItemGroupForItem(str);
-        if (category == null) {
-            disable(key + "的分类 " + str + " 不是有效的分类(只能是普通分类或子分类)!");
+    public static ItemGroup getCategory(String str, String key) {
+        ItemGroup category = Registry.allItemGroups.get(str);
+        if (category == null || category instanceof NestedItemGroup) {
+            disable(key + "的分类 " + str + " 不是有效的分类!");
         }
         return category;
     }

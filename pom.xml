@@ -73,13 +73,6 @@
                                 <exclude>META-INF/*.MF</exclude>
                             </excludes>
                         </relocation>
-                        <relocation>
-                            <pattern>net.guizhanss.guizhanlib</pattern>
-                            <shadedPattern>io.ncbpfluffybear.slimecustomizer.guizhanlib</shadedPattern>
-                            <excludes>
-                                <exclude>META-INF/*.MF</exclude>
-                            </excludes>
-                        </relocation>
                     </relocations>
                 </configuration>
                 <executions>
@@ -98,7 +91,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.18.2-R0.1-SNAPSHOT</version>
+            <version>1.16.5-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 
@@ -110,7 +103,7 @@
         </dependency>
 
         <dependency>
-            <groupId>net.guizhanss</groupId>
+            <groupId>com.github.SlimefunGuguProject</groupId>
             <artifactId>ExtraUtils</artifactId>
             <version>bf89aee6ae</version>
         </dependency>
@@ -131,9 +124,9 @@
 
         <dependency>
             <groupId>net.guizhanss</groupId>
-            <artifactId>GuizhanLib</artifactId>
-            <version>0.9.9</version>
-            <scope>compile</scope>
+            <artifactId>GuizhanLibPlugin</artifactId>
+            <version>1.0.4</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

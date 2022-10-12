@@ -1,12 +1,25 @@
 # 阅读wiki获取更多信息: https://slimefun-addons-wiki.guizhanss.cn/slime-customizer/Categories
 slime_customizer:
-  category-name: "&c默认普通分类"
+  type: normal
+  category-name: "&c普通分类"
   category-item: REDSTONE_LAMP
-nested_category:
-  parent: "this"
+nested_group:
+  type: nested
   category-name: "&c父分类"
-  category-item: NETHER_STAR
-sub_category:
-  parent: "nested_category"
+  category-item: BEDROCK
+sub_group:
+  type: sub
   category-name: "&c子分类"
-  category-item: STONE
+  category-item: DIRT
+  parent: nested_group
+seasonal_group:
+  type: seasonal
+  category-name: "&c季节性分类"
+  category-item: DIAMOND
+  month: 9
+locked_group:
+  type: locked
+  category-name: "&c锁定分类"
+  category-item: DIAMOND
+  parents:
+    - slimefun:basic_machines
