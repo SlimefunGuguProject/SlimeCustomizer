@@ -46,7 +46,19 @@ public class Categories {
 
             // update type
             if (type == null) {
-                type = "normal";
+                String parent = categories.getString(categoryKey + ".parent");
+                if (parent != null) {
+                    if (parent.equals("this")) {
+                        // nested
+                        type = "nested";
+                        categories.setValue(categoryKey + ".parent", null);
+                    } else {
+                        // sub
+                        type = "sub";
+                    }
+                } else {
+                    type = "normal";
+                }
                 categories.setValue(categoryKey + ".type", type);
                 categories.save();
             }
@@ -78,6 +90,7 @@ public class Categories {
 
             if (type.equalsIgnoreCase("nested")) {
                 tempCategory = new NestedItemGroup(key, item, tier);
+                Utils.notify("已注册父分类 " + categoryKey + ")!");
             } else if (type.equalsIgnoreCase("sub")) {
                 String parent = categories.getString(categoryKey + ".parent");
                 if (parent == null) {
@@ -92,6 +105,7 @@ public class Categories {
                 }
 
                 tempCategory = new SubItemGroup(key, (NestedItemGroup) parentGroup, item, tier);
+                Utils.notify("已注册子分类 " + categoryKey + " (父分类: " + parent + ")!");
             } else if (type.equalsIgnoreCase("seasonal")) {
                 int monthNum = categories.getInt(categoryKey + ".month");
                 Month month;
@@ -104,6 +118,7 @@ public class Categories {
                 }
 
                 tempCategory = new SeasonalItemGroup(key, month, tier, item);
+                Utils.notify("已注册季节性分类 " + categoryKey + ")!");
             } else if (type.equalsIgnoreCase("locked")) {
                 List<String> parents = categories.getStringList(categoryKey + ".parents");
                 NamespacedKey[] parentKeys = new NamespacedKey[parents.size()];
@@ -113,14 +128,13 @@ public class Categories {
                 }
 
                 tempCategory = new LockedItemGroup(key, item, tier, parentKeys);
+                Utils.notify("已注册锁定分类 " + categoryKey + ")!");
             } else {
-                type = "normal";
                 tempCategory = new ItemGroup(key, item, tier);
+                Utils.notify("已注册普通分类 " + categoryKey + ")!");
             }
 
-            Registry.allItemGroups.put(itemGroupKey, tempCategory);
-            Utils.notify("已注册分类 " + categoryKey + " (" + type + ")!");
-
+            Registry.allItemGroups.put(categoryKey, tempCategory);
         }
 
         return true;
