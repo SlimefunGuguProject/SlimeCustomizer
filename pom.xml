@@ -105,7 +105,7 @@
         <dependency>
             <groupId>com.github.SlimefunGuguProject</groupId>
             <artifactId>ExtraUtils</artifactId>
-            <version>bf89aee6ae</version>
+            <version>5a85ca6293</version>
         </dependency>
 
         <dependency>
