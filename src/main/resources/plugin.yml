@@ -14,7 +14,7 @@ main: io.ncbpfluffybear.slimecustomizer.SlimeCustomizer
 website: https://github.com/NCBPFluffyBear/SlimeCustomizer
 
 ## This is required and marks Slimefun as a plugin dependency.
-depend: [Slimefun]
+depend: [Slimefun, GuizhanLibPlugin]
 softdepend:
   - ChestTerminal
   - ColoredEnderChests
