@@ -6,7 +6,7 @@ EXAMPLE_GEO:
   item-lore:
     - "&7这是一个示例自然资源!"
   item-id: STICK
-  max-deviation: 0
+  max-deviation: 1
   biome:
     BEACH: 9
   environment:
