@@ -59,10 +59,9 @@ public class Items {
                 Utils.disable(itemKey + "的 item-amount 必须为正整数!");
                 return false;
             }
-            materialString = materialString.toUpperCase(Locale.ROOT);
 
             if (itemType.equalsIgnoreCase("CUSTOM")) {
-                Material material = Material.getMaterial(materialString);
+                Material material = Material.getMaterial(materialString.toUpperCase(Locale.ROOT));
 
                 /* Item material type */
                 if (material == null && !materialString.startsWith("SKULL")) {
