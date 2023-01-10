@@ -1,7 +1,9 @@
 package io.ncbpfluffybear.slimecustomizer;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
+import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
+import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.collections.Pair;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.config.Config;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
@@ -126,8 +128,7 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
 
         this.getCommand("slimecustomizer").setTabCompleter(new SCTabCompleter());
 
-        Bukkit.getLogger().log(Level.INFO, "[自定义粘液附属] " + ChatColor.BLUE + "正在初始化自定义粘液附属...");
-
+        Bukkit.getConsoleSender().sendMessage("[自定义粘液附属] " + ChatColor.BLUE + "正在初始化自定义粘液附属...");
         if (!Categories.register(categories)) {return;}
         if (!MobDrops.register(mobDrops)) {return;}
         if (!GeoResources.register(geoResources)) {return;}
@@ -272,8 +273,35 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
                     Utils.send(sender, "&c保存物品未找到!");
                 }
             }
+        } else if (sender instanceof Player && args[0].equals("categories")) {
+            Player p = (Player) sender;
+            if (!Utils.checkPermission(p, "slimecustomizer.admin")) {
+                return true;
+            }
+
+            SCMenu menu = new SCMenu("&6分类与ID列表");
+            menu.setSize(54);
+            int slot = 0;
+            for (ItemGroup group : Slimefun.getRegistry().getAllItemGroups()) {
+                ItemStack catItem = group.getItem(p).clone();
+                ItemMeta catMeta = catItem.getItemMeta();
+                List<String> catLore = catMeta.getLore();
+
+                catLore.set(catLore.size() - 1, Utils.color(
+                        "&6ID: " + group.getKey().getNamespace() + ":" + group.getKey().getKey())
+                ); // Replaces the "Click to Open" line
+                catMeta.setLore(catLore);
+                catItem.setItemMeta(catMeta);
+                menu.replaceExistingItem(slot, catItem);
+                menu.addMenuClickHandler(slot, ChestMenuUtils.getEmptyClickHandler());
+                slot++;
+            }
+
+            menu.setPlayerInventoryClickable(false);
+            menu.setBackgroundNonClickable(true);
+            menu.open(p);
         } else {
-            Utils.send(sender, "&e所以指令可在此查看 &9" + Links.COMMANDS);
+            Utils.send(sender, "&e所有指令可在此查看 &9" + Links.COMMANDS);
         }
 
         return true;
