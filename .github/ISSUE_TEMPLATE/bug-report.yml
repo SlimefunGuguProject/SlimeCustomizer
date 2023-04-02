@@ -108,7 +108,10 @@ body:
       label: Minecraft 版本
       description: 请选择你的 Minecraft 版本
       options:
-        - 1.18.x
+        - 1.19.4
+        - 1.19 ~ 1.19.3
+        - 1.18.2
+        - 1.18 ~ 1.18.1
         - 1.17.x
         - 本插件不支持旧版本
     validations:
