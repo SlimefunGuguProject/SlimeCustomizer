@@ -109,7 +109,7 @@ public class SCMachine {
 
     private void buildMachineStack() {
         // Check and update if the old lore system is still being used
-        Utils.updateLoreFormat(config, key, machineType);
+        // Utils.updateLoreFormat(config, key, machineType);
 
         // Building lore
         List<String> itemLore = Utils.colorList(Stream.concat(
