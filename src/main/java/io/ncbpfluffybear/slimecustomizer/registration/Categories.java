@@ -5,6 +5,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.groups.LockedItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.groups.NestedItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.groups.SeasonalItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.groups.SubItemGroup;
+import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.config.Config;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
@@ -98,7 +99,20 @@ public class Categories {
                     return false;
                 }
 
-                ItemGroup parentGroup = Registry.allItemGroups.get(parent);
+                ItemGroup parentGroup = null;
+
+                if (parent.startsWith("existing:")) {
+                    String parentGroupStr = parent.substring(9);
+                    for (ItemGroup group : Slimefun.getRegistry().getAllItemGroups()) {
+                        if (group.getKey().toString().equals(parentGroupStr)) {
+                            parentGroup = group;
+                            break;
+                        }
+                    }
+                } else {
+                    parentGroup = Registry.allItemGroups.get(parent);
+                }
+
                 if (!(parentGroup instanceof NestedItemGroup)) {
                     Utils.disable("分类 " + categoryKey + " 的父分类无效!");
                     return false;
@@ -128,10 +142,10 @@ public class Categories {
                 }
 
                 tempCategory = new LockedItemGroup(key, item, tier, parentKeys);
-                Utils.notify("已注册锁定分类 " + categoryKey + ")!");
+                Utils.notify("已注册锁定分类 " + categoryKey + "!");
             } else {
                 tempCategory = new ItemGroup(key, item, tier);
-                Utils.notify("已注册普通分类 " + categoryKey + ")!");
+                Utils.notify("已注册普通分类 " + categoryKey + "!");
             }
 
             Registry.allItemGroups.put(categoryKey, tempCategory);
