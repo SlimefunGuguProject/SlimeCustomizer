@@ -281,21 +281,8 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
 
             SCMenu menu = new SCMenu("&6分类与ID列表");
             menu.setSize(54);
-            int slot = 0;
-            for (ItemGroup group : Slimefun.getRegistry().getAllItemGroups()) {
-                ItemStack catItem = group.getItem(p).clone();
-                ItemMeta catMeta = catItem.getItemMeta();
-                List<String> catLore = catMeta.getLore();
 
-                catLore.set(catLore.size() - 1, Utils.color(
-                        "&6ID: " + group.getKey().getNamespace() + ":" + group.getKey().getKey())
-                ); // Replaces the "Click to Open" line
-                catMeta.setLore(catLore);
-                catItem.setItemMeta(catMeta);
-                menu.replaceExistingItem(slot, catItem);
-                menu.addMenuClickHandler(slot, ChestMenuUtils.getEmptyClickHandler());
-                slot++;
-            }
+            populateCategoryMenu(menu, Slimefun.getRegistry().getAllItemGroups(), 1, p);
 
             menu.setPlayerInventoryClickable(false);
             menu.setBackgroundNonClickable(true);
@@ -371,6 +358,56 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
 
     }
 
+    /**
+     * Populates the category gui. 45 items per page.
+     * @param menu the SCMenu to populate
+     * @param groups the List of itemgroups
+     * @param page the page number
+     * @param p the player that will be viewing this menu
+     */
+    private void populateCategoryMenu(SCMenu menu, List<ItemGroup> groups, int page, Player p) {
+        for (int i = 45; i < 54; i++) {
+            menu.replaceExistingItem(i, ChestMenuUtils.getBackground());
+        }
+
+        menu.wipe(0, 44, true);
+
+        for (int i = 0; i < 45; i++) {
+            int groupIndex = i + 1 + (page - 1) * 45;
+            ItemGroup group = getItemGroupOrNull(groups, groupIndex);
+            if (group != null) {
+                ItemStack catItem = group.getItem(p).clone();
+                ItemMeta catMeta = catItem.getItemMeta();
+                List<String> catLore = catMeta.getLore();
+
+                catLore.set(catLore.size() - 1, Utils.color(
+                    "&6ID: " + group.getKey().getNamespace() + ":" + group.getKey().getKey())
+                ); // Replaces the "Click to Open" line
+                catMeta.setLore(catLore);
+                catItem.setItemMeta(catMeta);
+                menu.replaceExistingItem(i, catItem);
+                menu.addMenuClickHandler(i, ChestMenuUtils.getEmptyClickHandler());
+            }
+        }
+
+        if (page != 1) {
+            menu.replaceExistingItem(46, new CustomItemStack(Material.LIME_STAINED_GLASS_PANE, "&a上一页"));
+            menu.addMenuClickHandler(46, (pl, s, is, action) -> {
+                populateCategoryMenu(menu, groups, page - 1, p);
+                return false;
+            });
+        }
+
+        if (getItemGroupOrNull(groups, 45 * page) != null) {
+            menu.replaceExistingItem(52, new CustomItemStack(Material.LIME_STAINED_GLASS_PANE, "&a下一页"));
+            menu.addMenuClickHandler(52, (pl, s, is, action) -> {
+                populateCategoryMenu(menu, groups, page + 1, p);
+                return false;
+            });
+        }
+
+    }
+
     private ItemStack getItemOrNull(List<Pair<String, ItemStack>> items, int index) {
         ItemStack item;
         try {
@@ -379,6 +416,14 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
             item = null;
         }
         return item;
+    }
+
+    private ItemGroup getItemGroupOrNull(List<ItemGroup> groups, int index) {
+        ItemGroup group = null;
+        try {
+            group = groups.get(index);
+        } catch (IndexOutOfBoundsException ignored) {}
+        return group;
     }
 
     private void giveItems(CommandSender s, Player p, SlimefunItem sfItem, int amount) {
