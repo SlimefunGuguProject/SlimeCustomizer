@@ -9,6 +9,7 @@ import io.github.thebusybiscuit.slimefun4.implementation.items.electric.Capacito
 import io.github.thebusybiscuit.slimefun4.libraries.dough.config.Config;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.utils.HeadTexture;
+import io.github.thebusybiscuit.slimefun4.utils.LoreBuilder;
 import io.ncbpfluffybear.slimecustomizer.SlimeCustomizer;
 import io.ncbpfluffybear.slimecustomizer.Utils;
 import io.ncbpfluffybear.slimecustomizer.objects.CustomMaterialGenerator;
@@ -45,27 +46,37 @@ public class MaterialGenerators {
                 return false;
             }
 
-            int energyConsumption, energyBuffer;
+            int energyConsumption, energyBuffer, tickRate;
             var cEnergyConsumption = NumberUtils.getConfigInt(
                 materialGenerators.getString(genKey + ".stats.energy-consumption"),
                 val -> val >= 0
             );
             var cEnergyBuffer = NumberUtils.getConfigInt(
-                materialGenerators.getString(genKey + ".stats.energy-consumption"),
+                materialGenerators.getString(genKey + ".stats.energy-buffer"),
                 val -> val >= 0
+            );
+            var cTickRate = NumberUtils.getConfigInt(
+                materialGenerators.getString(genKey + ".output.tick-rate"),
+                val -> val > 0
             );
 
             if (cEnergyConsumption.isEmpty()) {
-                Utils.disable(genKey + "的 energy-consumption 必须为整数且大于等于0!");
+                Utils.disable(genKey + "的 stats.energy-consumption 必须为整数且大于等于0!");
                 return false;
             } else {
                 energyConsumption = cEnergyConsumption.get();
             }
             if (cEnergyBuffer.isEmpty()) {
-                Utils.disable(genKey + "的 energy-buffer 必须为整数且大于等于0!");
+                Utils.disable(genKey + "的 stats.energy-buffer 必须为整数且大于等于0!");
                 return false;
             } else {
                 energyBuffer = cEnergyBuffer.get();
+            }
+            if (cTickRate.isEmpty()) {
+                Utils.disable(genKey + "的 output.tick-rate 必须为正整数!");
+                return false;
+            } else {
+                tickRate = cTickRate.get();
             }
 
             block = Utils.getBlockFromConfig(genKey, materialGenerators.getString(genKey + ".block-type"));
@@ -77,6 +88,7 @@ public class MaterialGenerators {
                 Stream.of(
                     "",
                     "&e材料生成器",
+                    "&8⇨ &7速度: &b每 " + tickRate + " 粘液刻生成一次",
                     LoreBuilderDynamic.powerBuffer(energyBuffer),
                     LoreBuilderDynamic.powerPerSecond(energyConsumption)
                 )
@@ -99,19 +111,6 @@ public class MaterialGenerators {
             /* Crafting recipe */
             ItemStack[] recipe = Utils.buildCraftingRecipe(materialGenerators, genKey, recipeType);
             if (recipe == null) {return false;}
-
-            int tickRate;
-            var cTickRate = NumberUtils.getConfigInt(
-                materialGenerators.getString(genKey + ".output.tick-rate"),
-                val -> val > 0
-            );
-
-            if (cTickRate.isEmpty()) {
-                Utils.disable(genKey + "的 output.tick-rate 必须为正整数!");
-                return false;
-            } else {
-                tickRate = cTickRate.get();
-            }
 
             int outputAmount = materialGenerators.getOrSetDefault(genKey + ".output.amount", 1);
 

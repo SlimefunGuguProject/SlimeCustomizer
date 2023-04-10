@@ -12,6 +12,7 @@ import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import net.guizhanss.guizhanlib.slimefun.machines.AbstractMachineBlock;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
@@ -118,5 +119,11 @@ public final class CustomMaterialGenerator extends AbstractMachineBlock implemen
         items.add(output);
 
         return items;
+    }
+
+    @Nonnull
+    @Override
+    public String getRecipeSectionLabel(@Nonnull Player p) {
+        return "&7生成:";
     }
 }
