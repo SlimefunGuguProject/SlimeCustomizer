@@ -115,7 +115,11 @@ public final class CustomMaterialGenerator extends AbstractMachineBlock implemen
     public List<ItemStack> getDisplayRecipes() {
         final List<ItemStack> items = new ArrayList<>();
 
-        items.add(null);
+        items.add(new CustomItemStack(
+            Material.KNOWLEDGE_BOOK,
+            "&7速度",
+            "&7每 " + tickRate + " 粘液刻生成一次"
+        ));
         items.add(output);
 
         return items;
