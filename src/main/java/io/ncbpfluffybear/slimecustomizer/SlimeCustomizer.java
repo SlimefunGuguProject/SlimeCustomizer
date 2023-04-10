@@ -16,11 +16,12 @@ import io.ncbpfluffybear.slimecustomizer.registration.Generators;
 import io.ncbpfluffybear.slimecustomizer.registration.GeoResources;
 import io.ncbpfluffybear.slimecustomizer.registration.Items;
 import io.ncbpfluffybear.slimecustomizer.registration.Machines;
+import io.ncbpfluffybear.slimecustomizer.registration.MaterialGenerators;
 import io.ncbpfluffybear.slimecustomizer.registration.MobDrops;
 import io.ncbpfluffybear.slimecustomizer.registration.Researches;
 import io.ncbpfluffybear.slimecustomizer.registration.SolarGenerators;
 import lombok.SneakyThrows;
-import net.guizhanss.guizhanlibplugin.updater.GuizhanBuildsUpdaterWrapper;
+import net.guizhanss.guizhanlibplugin.updater.GuizhanUpdater;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -62,7 +63,7 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
         Config cfg = new Config(this);
 
         if (cfg.getBoolean("options.auto-update") && getDescription().getVersion().startsWith("Build")) {
-            GuizhanBuildsUpdaterWrapper.start(this, getFile(), "SlimefunGuguProject", "SlimeCustomizer", "master", false);
+            GuizhanUpdater.start(this, getFile(), "SlimefunGuguProject", "SlimeCustomizer", "master");
         }
 
         final Metrics metrics = new Metrics(this, 9841);
@@ -79,6 +80,9 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
 
         final File itemsFile = new File(getInstance().getDataFolder(), "items.yml");
         copyFile(itemsFile, "items");
+
+        final File materialGeneratorsFile = new File(getInstance().getDataFolder(), "material-generators.yml");
+        copyFile(materialGeneratorsFile, "material-generators");
 
         final File capacitorsFile = new File(getInstance().getDataFolder(), "capacitors.yml");
         copyFile(capacitorsFile, "capacitors");
@@ -119,6 +123,7 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
         Config mobDrops = new Config(this, "mob-drops.yml");
         Config geoResources = new Config(this, "geo-resources.yml");
         Config items = new Config(this, "items.yml");
+        Config materialGenerators = new Config(this, "material-generators.yml");
         Config capacitors = new Config(this, "capacitors.yml");
         Config machines = new Config(this, "machines.yml");
         Config generators = new Config(this, "generators.yml");
@@ -133,6 +138,7 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
         if (!MobDrops.register(mobDrops)) {return;}
         if (!GeoResources.register(geoResources)) {return;}
         if (!Items.register(items)) {return;}
+        if (!MaterialGenerators.register(materialGenerators)) {return;}
         if (!Capacitors.register(capacitors)) {return;}
         if (!Machines.register(machines)) {return;}
         if (!Generators.register(generators)) {return;}

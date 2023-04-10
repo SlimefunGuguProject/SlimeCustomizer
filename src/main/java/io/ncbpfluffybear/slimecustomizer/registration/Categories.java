@@ -91,7 +91,7 @@ public class Categories {
 
             if (type.equalsIgnoreCase("nested")) {
                 tempCategory = new NestedItemGroup(key, item, tier);
-                Utils.notify("已注册父分类 " + categoryKey + ")!");
+                Utils.notify("已注册父分类 " + categoryKey + "!");
             } else if (type.equalsIgnoreCase("sub")) {
                 String parent = categories.getString(categoryKey + ".parent");
                 if (parent == null) {
@@ -132,7 +132,7 @@ public class Categories {
                 }
 
                 tempCategory = new SeasonalItemGroup(key, month, tier, item);
-                Utils.notify("已注册季节性分类 " + categoryKey + ")!");
+                Utils.notify("已注册季节性分类 " + categoryKey + "!");
             } else if (type.equalsIgnoreCase("locked")) {
                 List<String> parents = categories.getStringList(categoryKey + ".parents");
                 NamespacedKey[] parentKeys = new NamespacedKey[parents.size()];

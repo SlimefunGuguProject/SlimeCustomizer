@@ -73,8 +73,7 @@ public class Utils {
 
     public static boolean checkFitsStackSize(ItemStack item, String slot, String machineKey, String recipeKey) {
         if (item.getAmount() > item.getMaxStackSize()) {
-            disable("The " + slot + "ingredient for recipe" + recipeKey + " for " + machineKey
-                + " has a max stack size of " + item.getMaxStackSize() + "!");
+            disable(machineKey + " 的配方" + recipeKey + "的第" + slot + "个物品一组最多只能有" + item.getMaxStackSize() + "!");
             return false;
         }
         return true;
@@ -151,7 +150,7 @@ public class Utils {
 
         Registry.existingRecipes.forEach((itemStacks, recipeTypePair) -> {
             if (Arrays.equals(itemStacks, recipe) && recipeType == recipeTypePair.getFirstValue()) {
-                Utils.disable("The crafting recipe for " + key + " is already being used for "
+                Utils.disable(key + " 的合成配方重复,该配方已经用于 "
                     + recipeTypePair.getSecondValue());
                 invalid.set(true);
             }
@@ -169,7 +168,7 @@ public class Utils {
 
     public static ItemStack getBlockFromConfig(String key, String materialString) {
         if (materialString == null) {
-            Utils.disable("The material for " + key + " could not be found!");
+            Utils.disable(key + " 未设置 block-type!");
             return null;
         }
 
@@ -177,7 +176,7 @@ public class Utils {
         Material material = Material.getMaterial(materialString);
 
         if ((material == null || !material.isBlock()) && !materialString.startsWith("SKULL")) {
-            Utils.disable("The block-type for " + key + " MUST be a block!");
+            Utils.disable(key + " 的 block-type 必须为方块!");
             return null;
         } else if (material != null && material.isBlock()) {
             block = new ItemStack(material);
