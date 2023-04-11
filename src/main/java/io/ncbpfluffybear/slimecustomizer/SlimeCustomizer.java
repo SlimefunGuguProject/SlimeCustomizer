@@ -81,9 +81,6 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
         final File itemsFile = new File(getInstance().getDataFolder(), "items.yml");
         copyFile(itemsFile, "items");
 
-        final File materialGeneratorsFile = new File(getInstance().getDataFolder(), "material-generators.yml");
-        copyFile(materialGeneratorsFile, "material-generators");
-
         final File capacitorsFile = new File(getInstance().getDataFolder(), "capacitors.yml");
         copyFile(capacitorsFile, "capacitors");
 
@@ -95,6 +92,9 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
 
         final File solarGeneratorsFile = new File(getInstance().getDataFolder(), "solar-generators.yml");
         copyFile(solarGeneratorsFile, "solar-generators");
+
+        final File materialGeneratorsFile = new File(getInstance().getDataFolder(), "material-generators.yml");
+        copyFile(materialGeneratorsFile, "material-generators");
 
         final File researchesFile = new File(getInstance().getDataFolder(), "researches.yml");
         copyFile(researchesFile, "researches");
@@ -123,12 +123,12 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
         Config mobDrops = new Config(this, "mob-drops.yml");
         Config geoResources = new Config(this, "geo-resources.yml");
         Config items = new Config(this, "items.yml");
-        Config materialGenerators = new Config(this, "material-generators.yml");
         Config capacitors = new Config(this, "capacitors.yml");
         Config machines = new Config(this, "machines.yml");
         Config generators = new Config(this, "generators.yml");
         Config solarGenerators = new Config(this, "solar-generators.yml");
         Config passiveMachines = new Config(this, "passive-machines.yml");
+        Config materialGenerators = new Config(this, "material-generators.yml");
         Config researches = new Config(this, "researches.yml");
 
         this.getCommand("slimecustomizer").setTabCompleter(new SCTabCompleter());
@@ -138,11 +138,11 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
         if (!MobDrops.register(mobDrops)) {return;}
         if (!GeoResources.register(geoResources)) {return;}
         if (!Items.register(items)) {return;}
-        if (!MaterialGenerators.register(materialGenerators)) {return;}
         if (!Capacitors.register(capacitors)) {return;}
         if (!Machines.register(machines)) {return;}
         if (!Generators.register(generators)) {return;}
         if (!SolarGenerators.register(solarGenerators)) {return;}
+        if (!MaterialGenerators.register(materialGenerators)) {return;}
         if (!Researches.register(researches)) {return;}
 
         Bukkit.getPluginManager().registerEvents(new Events(), instance);
