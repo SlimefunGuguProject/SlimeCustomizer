@@ -128,7 +128,7 @@ public class MaterialGenerators {
                     Utils.disable(genKey + "的输出物品的 id 不是有效的原版物品ID!");
                     return false;
                 } else {
-                    output = new ItemStack(vanillaMat, amount);
+                    output = new ItemStack(vanillaMat, outputAmount);
                 }
             } else if (outputType.equalsIgnoreCase("SLIMEFUN")) {
                 SlimefunItem sfMat = SlimefunItem.getById(outputMaterial);
@@ -136,10 +136,10 @@ public class MaterialGenerators {
                     Utils.disable(genKey + "的输出物品的 id 不是有效的粘液科技物品ID!");
                     return false;
                 } else {
-                    output = new CustomItemStack(sfMat.getItem().clone(), amount);
+                    output = new CustomItemStack(sfMat.getItem().clone(), outputAmount);
                 }
             } else if (outputType.equalsIgnoreCase("SAVEDITEM")) {
-                output = Utils.retrieveSavedItem(outputMaterial, amount, true);
+                output = Utils.retrieveSavedItem(outputMaterial, outputAmount, true);
             } else {
                 Utils.disable(genKey + "的输出物品的类型只能为: VANILLA, SLIMEFUN, 或 SAVEDITEM!");
                 return false;
