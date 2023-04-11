@@ -36,7 +36,7 @@ public class Machines {
             if (category == null) {return false;}
 
             // Update to new dual input/output system
-            Utils.updateInputAndOutputFormat(machines, machineKey);
+            // Utils.updateInputAndOutputFormat(machines, machineKey);
 
             HashMap<Pair<ItemStack[], ItemStack[]>, Integer> customRecipe = new HashMap<>();
 

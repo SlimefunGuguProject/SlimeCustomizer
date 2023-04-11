@@ -16,11 +16,12 @@ import io.ncbpfluffybear.slimecustomizer.registration.Generators;
 import io.ncbpfluffybear.slimecustomizer.registration.GeoResources;
 import io.ncbpfluffybear.slimecustomizer.registration.Items;
 import io.ncbpfluffybear.slimecustomizer.registration.Machines;
+import io.ncbpfluffybear.slimecustomizer.registration.MaterialGenerators;
 import io.ncbpfluffybear.slimecustomizer.registration.MobDrops;
 import io.ncbpfluffybear.slimecustomizer.registration.Researches;
 import io.ncbpfluffybear.slimecustomizer.registration.SolarGenerators;
 import lombok.SneakyThrows;
-import net.guizhanss.guizhanlibplugin.updater.GuizhanBuildsUpdaterWrapper;
+import net.guizhanss.guizhanlibplugin.updater.GuizhanUpdater;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -58,11 +59,18 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
         instance = this;
         itemsFolder = new File(this.getDataFolder(), "saveditems");
 
+        if (!getServer().getPluginManager().isPluginEnabled("GuizhanLibPlugin")) {
+            getLogger().log(Level.SEVERE, "本插件需要 鬼斩前置库插件(GuizhanLibPlugin) 才能运行!");
+            getLogger().log(Level.SEVERE, "从此处下载: https://50l.cc/gzlib");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
+
         // Read something from your config.yml
         Config cfg = new Config(this);
 
         if (cfg.getBoolean("options.auto-update") && getDescription().getVersion().startsWith("Build")) {
-            GuizhanBuildsUpdaterWrapper.start(this, getFile(), "SlimefunGuguProject", "SlimeCustomizer", "master", false);
+            GuizhanUpdater.start(this, getFile(), "SlimefunGuguProject", "SlimeCustomizer", "master");
         }
 
         final Metrics metrics = new Metrics(this, 9841);
@@ -91,6 +99,9 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
 
         final File solarGeneratorsFile = new File(getInstance().getDataFolder(), "solar-generators.yml");
         copyFile(solarGeneratorsFile, "solar-generators");
+
+        final File materialGeneratorsFile = new File(getInstance().getDataFolder(), "material-generators.yml");
+        copyFile(materialGeneratorsFile, "material-generators");
 
         final File researchesFile = new File(getInstance().getDataFolder(), "researches.yml");
         copyFile(researchesFile, "researches");
@@ -124,6 +135,7 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
         Config generators = new Config(this, "generators.yml");
         Config solarGenerators = new Config(this, "solar-generators.yml");
         Config passiveMachines = new Config(this, "passive-machines.yml");
+        Config materialGenerators = new Config(this, "material-generators.yml");
         Config researches = new Config(this, "researches.yml");
 
         this.getCommand("slimecustomizer").setTabCompleter(new SCTabCompleter());
@@ -137,6 +149,7 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
         if (!Machines.register(machines)) {return;}
         if (!Generators.register(generators)) {return;}
         if (!SolarGenerators.register(solarGenerators)) {return;}
+        if (!MaterialGenerators.register(materialGenerators)) {return;}
         if (!Researches.register(researches)) {return;}
 
         Bukkit.getPluginManager().registerEvents(new Events(), instance);
