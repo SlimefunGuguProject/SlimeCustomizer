@@ -74,8 +74,22 @@ public class Machines {
 
                     for (int transIndex = 1; transIndex < 3; transIndex++) {
 
-                        String type = machines.getString(path + "." + slot + "." + transIndex + ".type").toUpperCase();
-                        String material = machines.getString(path + "." + slot + "." + transIndex + ".id").toUpperCase();
+                        String type = machines.getString(path + "." + slot + "." + transIndex + ".type");
+                        String material = machines.getString(path + "." + slot + "." + transIndex + ".id");
+
+                        if (type == null) {
+                            Utils.disable(machineKey + "的配方 " + recipeKey + " 的第" + transIndex
+                                + "个" + slot + "物品的类型未填写!");
+                            return false;
+                        }
+                        if (material == null) {
+                            Utils.disable(machineKey + "的配方 " + recipeKey + " 的第" + transIndex
+                                + "个" + slot + "物品的ID未填写!");
+                            return false;
+                        } else {
+                            material = material.toUpperCase();
+                        }
+
                         int amount;
 
                         /* Validate amount */
