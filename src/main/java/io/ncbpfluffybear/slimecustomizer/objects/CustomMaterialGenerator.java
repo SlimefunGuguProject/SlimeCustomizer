@@ -1,12 +1,12 @@
 package io.ncbpfluffybear.slimecustomizer.objects;
 
+import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.attributes.RecipeDisplayItem;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
-import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import net.guizhanss.guizhanlib.slimefun.machines.AbstractMachineBlock;
@@ -97,13 +97,13 @@ public final class CustomMaterialGenerator extends AbstractMachineBlock implemen
     }
 
     private static void setProgress(Block b, int progress) {
-        BlockStorage.addBlockInfo(b, "progress", String.valueOf(progress));
+        StorageCacheUtils.setData(b.getLocation(), "progress", String.valueOf(progress));
     }
 
     private static int getProgress(Block b) {
         int progress;
         try {
-            progress = Integer.parseInt(BlockStorage.getLocationInfo(b.getLocation(), "progress"));
+            progress = Integer.parseInt(StorageCacheUtils.getData(b.getLocation(), "progress"));
         } catch (NumberFormatException ex) {
             progress = 1;
         }

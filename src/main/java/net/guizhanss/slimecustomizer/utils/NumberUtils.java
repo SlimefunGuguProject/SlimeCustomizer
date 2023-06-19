@@ -3,10 +3,10 @@ package net.guizhanss.slimecustomizer.utils;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Optional;
-import java.util.function.Function;
+import java.util.function.Predicate;
 
 public final class NumberUtils {
-    public static Optional<Integer> getConfigInt(@Nullable String original, @Nonnull Function<Integer, Boolean> validator) {
+    public static Optional<Integer> getConfigInt(@Nullable String original, @Nonnull Predicate<Integer> validator) {
         int value;
         try {
             value = Integer.parseInt(original);
@@ -14,7 +14,7 @@ public final class NumberUtils {
             return Optional.empty();
         }
 
-        if (validator.apply(value)) {
+        if (validator.test(value)) {
             return Optional.of(value);
         } else {
             return Optional.empty();
