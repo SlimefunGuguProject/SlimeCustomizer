@@ -97,6 +97,8 @@ softdepend:
   - NotEnoughAddons
   - SlimeSec
   - EMCTech
+  - RelicsOfCthonia
+  - Supreme
 
   ## This value is automatically replaced by the version specified in your pom.xml file, do not change this.
 version: ${project.version}
