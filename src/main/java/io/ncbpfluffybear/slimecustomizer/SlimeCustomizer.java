@@ -76,6 +76,9 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
         final Metrics metrics = new Metrics(this, 9841);
 
         /* File generation */
+        final File scAddonFile = new File(getInstance().getDataFolder(), "sc-addon.yml");
+        copyFile(scAddonFile, "sc-addon");
+
         final File categoriesFile = new File(getInstance().getDataFolder(), "categories.yml");
         copyFile(categoriesFile, "categories");
 
@@ -126,6 +129,7 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
             }
         }
 
+        Config scAddon = new Config(this, "sc-addon.yml");
         Config categories = new Config(this, "categories.yml");
         Config mobDrops = new Config(this, "mob-drops.yml");
         Config geoResources = new Config(this, "geo-resources.yml");
@@ -141,6 +145,25 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
         this.getCommand("slimecustomizer").setTabCompleter(new SCTabCompleter());
 
         Bukkit.getConsoleSender().sendMessage("[自定义粘液附属] " + ChatColor.BLUE + "正在初始化自定义粘液附属...");
+
+        boolean dependsValid = true;
+        List<String> depends = new ArrayList<>();
+        for (String depend : scAddon.getStringList("depend")) {
+            if (Bukkit.getPluginManager().isPluginEnabled(depend)) {
+                depends.add(ChatColor.GREEN + depend);
+            } else {
+                dependsValid = false;
+                depends.add(ChatColor.RED + depend);
+            }
+        }
+        if (!dependsValid) {
+            Bukkit.getConsoleSender().sendMessage("[自定义粘液附属] " + ChatColor.RED + "依赖项检查失败! " +
+                "需要以下所有插件启用后才能运行：");
+            Bukkit.getConsoleSender().sendMessage("[自定义粘液附属] " + ChatColor.RED + String.join(ChatColor.WHITE + ", ",
+                depends));
+            Bukkit.getPluginManager().disablePlugin(this);
+            return;
+        }
         if (!Categories.register(categories)) {return;}
         if (!MobDrops.register(mobDrops)) {return;}
         if (!GeoResources.register(geoResources)) {return;}
@@ -153,6 +176,23 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
         if (!Researches.register(researches)) {return;}
 
         Bukkit.getPluginManager().registerEvents(new Events(), instance);
+    }
+
+    /**
+     * 检测所有依赖项是否已启用
+     * @param scAddon 配置文件 sc-addon.yml
+     * @return 所有依赖项是否已启用
+     */
+    private boolean checkDepends(Config scAddon) {
+        if (!scAddon.contains("depend")) {
+            return true;
+        }
+        for (String pluginName : scAddon.getStringList("depend")) {
+            if (!Bukkit.getPluginManager().isPluginEnabled(pluginName)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @SneakyThrows
