@@ -32,7 +32,6 @@ softdepend:
   - SlimyTreeTaps
   - SoulJars
   - CommandOverride
-  - CS-CoreLib
   - EmeraldEnchants2
   - QuickMarket
   - QuickSell
@@ -99,6 +98,19 @@ softdepend:
   - EMCTech
   - RelicsOfCthonia
   - Supreme
+  - DyeBench
+  - MiniBlocks
+  - SlimeHUD
+  - SpiritsUnchained
+  - Cultivation
+  - Gastronomicon
+  - SmallSpace
+  - BetterGenerator
+  - VillagerTrade
+  - SlimeFrame
+  - AdvancedTech
+  - Quaptics
+  - FastMachines
 
   ## This value is automatically replaced by the version specified in your pom.xml file, do not change this.
 version: ${project.version}
