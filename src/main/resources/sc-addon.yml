@@ -1,5 +1,8 @@
-# 该配置文件定义了必须启用的插件
-# 如果列表中任意插件没有启用，则本插件将不会启用
-# 你可以把 Slimefun 删除（毕竟没Slimefun本附属根本不会运行）
+# 该配置文件定义了运行该套配置需要的服务器环境
+# version 为版本需求，至少达到指定版本才能运行
+# version.minecraft 填写MC大版本号，例如1.20则填写1.20
+
+version:
+  minecraft: 16
 depend:
   - Slimefun

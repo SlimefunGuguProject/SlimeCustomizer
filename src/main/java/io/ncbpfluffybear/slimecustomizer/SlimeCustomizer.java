@@ -7,6 +7,7 @@ import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.collections.Pair;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.config.Config;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
+import io.github.thebusybiscuit.slimefun4.libraries.paperlib.PaperLib;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
 import io.ncbpfluffybear.slimecustomizer.objects.SCMenu;
 import io.ncbpfluffybear.slimecustomizer.objects.WindowsExplorerStringComparator;
@@ -146,6 +147,13 @@ public class SlimeCustomizer extends JavaPlugin implements SlimefunAddon {
 
         Bukkit.getConsoleSender().sendMessage("[自定义粘液附属] " + ChatColor.BLUE + "正在初始化自定义粘液附属...");
 
+        int requiredVersion = scAddon.getInt("version.minecraft");
+        if (requiredVersion > 0 && PaperLib.getMinecraftVersion() < requiredVersion) {
+            Bukkit.getConsoleSender().sendMessage("[自定义粘液附属] " + ChatColor.RED + "你的服务器版本过低! " +
+                "该自定义粘液附属配置需要至少 " + ChatColor.YELLOW + "Minecraft 1." + requiredVersion + ChatColor.RED + "!");
+            Bukkit.getPluginManager().disablePlugin(this);
+            return;
+        }
         boolean dependsValid = true;
         List<String> depends = new ArrayList<>();
         for (String depend : scAddon.getStringList("depend")) {

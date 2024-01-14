@@ -73,7 +73,7 @@ public class Utils {
 
     public static boolean checkFitsStackSize(ItemStack item, String slot, String machineKey, String recipeKey) {
         if (item.getAmount() > item.getMaxStackSize()) {
-            disable(machineKey + " 的配方" + recipeKey + "的第" + slot + "个物品一组最多只能有" + item.getMaxStackSize() + "!");
+            disable(machineKey + " 的配方" + recipeKey + "的" + slot + "物品一组最多只能有" + item.getMaxStackSize() + "!");
             return false;
         }
         return true;
