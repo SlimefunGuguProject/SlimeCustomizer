@@ -318,6 +318,8 @@ public class Utils {
                 return RecipeType.GRIND_STONE;
             case "ANCIENT_ALTAR":
                 return RecipeType.ANCIENT_ALTAR;
+            case "JUICER":
+                return RecipeType.JUICER;
             case "NONE":
                 return RecipeType.NULL;
             default:
