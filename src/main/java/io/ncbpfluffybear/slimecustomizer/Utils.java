@@ -42,7 +42,8 @@ public class Utils {
         RecipeType.ARMOR_FORGE,
         RecipeType.PRESSURE_CHAMBER,
         RecipeType.MAGIC_WORKBENCH,
-        RecipeType.ANCIENT_ALTAR
+        RecipeType.ANCIENT_ALTAR,
+        RecipeType.JUICER
     ));
 
     public static void send(CommandSender s, String msg) {
@@ -318,6 +319,8 @@ public class Utils {
                 return RecipeType.GRIND_STONE;
             case "ANCIENT_ALTAR":
                 return RecipeType.ANCIENT_ALTAR;
+            case "JUICER":
+                return RecipeType.JUICER;
             case "NONE":
                 return RecipeType.NULL;
             default:
