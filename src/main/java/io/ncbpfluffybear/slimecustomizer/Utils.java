@@ -42,7 +42,8 @@ public class Utils {
         RecipeType.ARMOR_FORGE,
         RecipeType.PRESSURE_CHAMBER,
         RecipeType.MAGIC_WORKBENCH,
-        RecipeType.ANCIENT_ALTAR
+        RecipeType.ANCIENT_ALTAR,
+        RecipeType.JUICER
     ));
 
     public static void send(CommandSender s, String msg) {
