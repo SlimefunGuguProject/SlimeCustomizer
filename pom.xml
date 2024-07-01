@@ -103,7 +103,7 @@
         <dependency>
             <groupId>com.github.StarWishsama</groupId>
             <artifactId>Slimefun4</artifactId>
-            <version>2023.06</version>
+            <version>2024.3</version>
             <scope>provided</scope>
         </dependency>
 
@@ -123,7 +123,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.24</version>
+            <version>1.18.32</version>
             <scope>provided</scope>
         </dependency>
 
@@ -137,7 +137,7 @@
         <dependency>
             <groupId>net.guizhanss</groupId>
             <artifactId>GuizhanLibPlugin</artifactId>
-            <version>1.2.0</version>
+            <version>1.7.6</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
