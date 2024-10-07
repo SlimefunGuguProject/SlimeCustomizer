@@ -22,7 +22,7 @@ import io.ncbpfluffybear.slimecustomizer.registration.MobDrops;
 import io.ncbpfluffybear.slimecustomizer.registration.Researches;
 import io.ncbpfluffybear.slimecustomizer.registration.SolarGenerators;
 import lombok.SneakyThrows;
-import net.guizhanss.guizhanlibplugin.updater.GuizhanUpdater;
+import net.guizhanss.minecraft.guizhanlib.updater.GuizhanUpdater;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
